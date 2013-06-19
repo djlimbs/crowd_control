@@ -56,11 +56,12 @@
         }
       
     </style>
+    
     <script>
     	function checkValue() {
-    		var loginType = $( "#guestType").attr("value");
+    		var loginType = $( "#guestType").val();
     		var loginDestination;
-    		
+
     		if (loginType === "guest"){
     			loginDestination = "guests.html";
     			$( "#guestName").fadeIn();
@@ -79,6 +80,6 @@
     
 		$(function() {
 			$(" #guestName").hide();
-			$( "#guestType").change(checkValue)
+			$(" #guestType").change(checkValue);
 		});
     </script>
