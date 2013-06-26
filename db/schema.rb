@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130625233854) do
+ActiveRecord::Schema.define(version: 20130626211535) do
 
   create_table "alt_names", force: true do |t|
     t.string   "alt_name"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20130625233854) do
   add_index "alt_names", ["diff_nameable_id", "diff_nameable_type"], name: "index_alt_names_on_diff_nameable_id_and_diff_nameable_type"
 
   create_table "artists", force: true do |t|
-    t.string   "artist_name"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
