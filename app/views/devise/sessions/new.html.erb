@@ -1,19 +1,104 @@
-<h1 class="text-center">Sign in</h1>
+<h1 class="text-center">Crowd Control</h1>
 
 <div class="hero-unit">
-	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  		<div><%= f.label :email %>
-  		<%= f.email_field :email, :autofocus => true %></div>
+    <h1>
+    	Come on in<br>
+    </h1>
+	<p>
+    		Are you on the list? Couples and DJs, 
+    		<%= link_to 'please signup', new_user_registration_path %>.
+    		Guests, enter your name and the couple's password.
+    </p>
+	
+	<div class="control-group">
 
- 	 	<div><%= f.label :password %>
-  		<%= f.password_field :password %></div>
+		<label class="control-label">
+			Who you be?
+		</label>    		
+	
+		<div class="controls">
+			<select id = "guestType">
+				<option value="couple">
+					The VIPs
+				</option>
+				<option value="guest">
+					Party Person
+				</option>
+				<option value="DJs">
+					Le DJ
+				</option>
+			</select>
+		</div>
+	</div>
+	
+<!--	<div>
+		<%= select_tag(:email, options_from_collection_for_select(User.all, :id, :email)) %>
+		<%= User.find_each do |u| %>
+			<%= options_for_select([u.email]) %>
+		<% end %>
+	</div>
+-->	
+	<div id="dj_couple">
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			<%= f.label :email %>
+			<%= f.email_field :email, :autofocus => true %>
 
-  		<% if devise_mapping.rememberable? -%>
-    		<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  		<% end -%>
+			<%= f.label :password %>
+			<%= f.password_field :password %>
 
-  		<div><%= f.submit "Sign in" %></div>
-	<% end %>
+			<% if devise_mapping.rememberable? -%>
+				<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+			<% end -%>
+
+			<div><%= f.submit "Sign in", :class => "btn" %></div>
+		<% end %>
+	</div>
+
+	<div id="guest">
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			<%= f.label "Couple Name" %>
+			<%= f.select(:email, options_from_collection_for_select(User.all, :email, :email)) %>
+
+			<%= f.label :password %>
+			<%= f.password_field :password %>
+
+			<% if devise_mapping.rememberable? -%>
+				<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+			<% end -%>
+
+			<div><%= f.submit "Sign in", :class => "btn" %></div>
+		<% end %>
+	</div>
 
 	<%= render "devise/shared/links" %>
 </div>
+
+<script>
+	function checkValue() {
+		var loginType = $( "#guestType").val();
+		var loginDestination;
+
+		if (loginType === "guest"){
+			loginDestination = "guests.html";
+			$( "#dj_couple").hide();
+			$( "#guest").fadeIn();
+		}
+		else if (loginType === "couple"){
+			loginDestination = "couples.html";
+			$( "#dj_couple").fadeIn();
+			$( "#guest").hide();
+		}
+		else{
+			loginDestination = "djs.html";
+			$( "#dj_couple").fadeIn();
+			$( "#guest").hide();
+		}
+		
+		$( "#loginButton").attr("href", loginDestination);
+	}
+
+	$(function() {
+		$(" #guest").hide();
+		$(" #guestType").change(checkValue);
+	});
+</script>
