@@ -11,7 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130620200047) do
+ActiveRecord::Schema.define(version: 20130625233854) do
+
+  create_table "alt_names", force: true do |t|
+    t.string   "alt_name"
+    t.string   "diff_nameable_type"
+    t.integer  "diff_nameable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alt_names", ["diff_nameable_id", "diff_nameable_type"], name: "index_alt_names_on_diff_nameable_id_and_diff_nameable_type"
+
+  create_table "artists", force: true do |t|
+    t.string   "artist_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "songs", force: true do |t|
+    t.integer  "year"
+    t.integer  "artist_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "songs", ["artist_id"], name: "index_songs_on_artist_id"
+
+  create_table "titles", force: true do |t|
+    t.string   "song_title"
+    t.integer  "song_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "titles", ["song_id"], name: "index_titles_on_song_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
