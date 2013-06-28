@@ -1,32 +1,27 @@
 class AltNamesController < ApplicationController
-  before_action :set_alt_name, only: [:show, :edit]
+  before_action :set_alt_name, only: [:show, :edit, :destroy]
 
   def index
   	@alt_names = AltName.all
   end
   
   def new
-  	@alt_name = AltName.new
   end
 
   def create
-    @alt_name = AltName.new(alt_name_params)
-
-    respond_to do |format|
-      if @alt_name.save
-        format.html { redirect_to @alt_name, notice: 'AltName was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @alt_name }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @alt_name.errors, status: :unprocessable_entity }
-      end
-    end
   end
   
   def show
-  	@alt_name = AltName.find(params[:id])
   end
 
+  def destroy
+	@alt_name.destroy
+	respond_to do |format|
+    	format.html { redirect_to alt_names_url }
+    	format.json { head :no_content }
+    end
+  end
+  
   def edit
   end
 

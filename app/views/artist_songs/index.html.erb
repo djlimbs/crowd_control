@@ -1,2 +1,27 @@
-<h1>ArtistSongs#index</h1>
-<p>Find me in app/views/artist_songs/index.html.erb</p>
+<h1>Artist-Songs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artist Song</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @artist_songs.each do |artist_song| %>
+      <tr>
+        <td><%= artist_song.display_name %></td>
+        <td><%= link_to 'Show', artist_song %></td>
+        <td><%= link_to 'Edit', edit_artist_path(artist_song) %></td>
+        <td><%= link_to 'Destroy', artist_song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New ArtistSong', new_artist_song_path %>

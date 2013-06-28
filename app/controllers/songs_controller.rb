@@ -20,17 +20,17 @@ class SongsController < ApplicationController
   		if @artist.nil?
   			@artist = Artist.find_by(id: @alt_artist.diff_nameable_id)
   		end
-  		@song.artist_songs.build(artist: @artist)
+  		@artist_song = @song.artist_songs.build(artist: @artist)
   	else
-  		@artist = @song.artists.build(name: artist_params[:artist][:name])
+  		@artist = Artist.new(artist_params[:artist])
+  		@artist_song = @song.artist_songs.build(artist: @artist)
   		@artist_alt_names = alt_artist_params[:artist][:alt_name][:alt_name].split(',')
   		@artist_alt_names.each do |artist_alt_name|
   			@artist.alt_names.build(alt_name: artist_alt_name)
   		end
   	end
   	
-	@display_name = @artist.name + " - " + @song.title
-	@song.artist_songs.build(display_name: @display_name)
+	@artist_song.display_name = @artist.name + " - " + @song.title
 	
     respond_to do |format|
       if @song.save
@@ -44,6 +44,7 @@ class SongsController < ApplicationController
   end
   
   def show
+  	@artist_song = ArtistSong.find_by(song_id: @song.id)
   end
 
   def edit

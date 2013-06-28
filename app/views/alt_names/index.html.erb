@@ -1,2 +1,27 @@
-<h1>AltNames#index</h1>
-<p>Find me in app/views/alt_names/index.html.erb</p>
+<h1>Listing alt_names</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Alt Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alt_names.each do |alt_name| %>
+      <tr>
+        <td><%= alt_name.alt_name %></td>
+        <td><%= link_to 'Show', alt_name %></td>
+        <td><%= link_to 'Edit', edit_alt_name_path(alt_name) %></td>
+        <td><%= link_to 'Destroy', alt_name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Artist', new_alt_name_path %>

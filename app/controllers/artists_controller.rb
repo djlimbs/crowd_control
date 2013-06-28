@@ -18,6 +18,9 @@ class ArtistsController < ApplicationController
   end
 
   def destroy
+    @artist.alt_names.each do |alt_name|
+    	alt_name.destroy
+    end
     @artist.destroy
     respond_to do |format|
       format.html { redirect_to artists_url }
