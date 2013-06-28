@@ -1,4 +1,6 @@
 CrowdControl::Application.routes.draw do
+  resources :artist_songs
+  resources :songs
   resources :alt_names
   resources :artists
   devise_for :users
