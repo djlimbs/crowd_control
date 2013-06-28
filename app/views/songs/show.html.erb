@@ -1,0 +1,21 @@
+<h1>Show song</h1>
+<p>
+<h2>Artist</h2>
+<% @song.artists.each do |artist| %>
+	<%= artist.name %>
+	
+	<h2>AKA</h2>
+	
+	<% artist.alt_names.each do |artist_alt| %>
+		<%= artist_alt.alt_name %><br>
+	<% end %>
+<% end %>
+
+<h2>Title</h2>
+<%= @song.title %>
+<h2>Sometimes called</h2>
+<% @song.alt_names.each do |song_alt| %>
+	<%= song_alt.alt_name %>
+<% end %>
+<h2>Chart Name</h2>
+<%= @song.artist_songs.first.display_name %>

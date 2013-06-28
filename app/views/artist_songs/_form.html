@@ -1,0 +1,38 @@
+<%= form_for(@artist_song) do |artist_song_form| %>
+	<% if @artist.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@artist.errors.count, "error") %> prohibited this artist from being saved:</h2>
+
+			<ul>
+			<% @artist.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<%= fields_for(@artist) do |artist_form| %>
+	
+		<p>
+			<%= artist_form.label :name %><br>
+			<%= artist_form.text_field :name %>
+		</p>
+	
+		<%= artist_form.fields_for :alt_names do |an| %>
+			<p>
+				<%= an.label :alt_name %><br>
+				<%= an.text_field :alt_name %>
+			</p>
+		<% end %>
+
+		<%= artist_form.fields_for :songs do |as| %>
+			<p>
+				<%= as.label :title %><br>
+				<%= as.text_field :title %>
+			</p>
+		<% end %>
+	<% end %>
+  	<div class="actions">
+    	<%= artist_song_form.submit %>
+  	</div>
+<% end %>
