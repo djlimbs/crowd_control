@@ -5,9 +5,7 @@
     	Come on in<br>
     </h1>
 	<p>
-    		Are you on the list? Couples and DJs, 
-    		<%= link_to 'please signup', new_user_registration_path %>.
-    		Guests, enter your name and the couple's password.
+    		Are you on the list?
     </p>
 	
 	<div class="control-group">
@@ -19,13 +17,10 @@
 		<div class="controls">
 			<select id = "guestType">
 				<option value="couple">
-					The VIPs
+					VIPs and DJs
 				</option>
 				<option value="guest">
-					Party Person
-				</option>
-				<option value="DJs">
-					Le DJ
+					Party Peoples
 				</option>
 			</select>
 		</div>
@@ -57,7 +52,7 @@
 	<div id="guest">
 		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 			<%= f.label "Couple Name" %>
-			<%= f.select(:email, options_from_collection_for_select(User.all, :email, :email)) %>
+			<%= f.select(:name, options_from_collection_for_select(User.find(:all, :conditions => ['dj_id IS NOT ?', nil]), :id, :name)) %>
 
 			<%= f.label :password %>
 			<%= f.password_field :password %>
@@ -76,25 +71,15 @@
 <script>
 	function checkValue() {
 		var loginType = $( "#guestType").val();
-		var loginDestination;
 
 		if (loginType === "guest"){
-			loginDestination = "guests.html";
 			$( "#dj_couple").hide();
 			$( "#guest").fadeIn();
 		}
-		else if (loginType === "couple"){
-			loginDestination = "couples.html";
-			$( "#dj_couple").fadeIn();
-			$( "#guest").hide();
-		}
 		else{
-			loginDestination = "djs.html";
 			$( "#dj_couple").fadeIn();
 			$( "#guest").hide();
 		}
-		
-		$( "#loginButton").attr("href", loginDestination);
 	}
 
 	$(function() {
