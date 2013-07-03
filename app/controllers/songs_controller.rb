@@ -1,4 +1,5 @@
 class SongsController < ApplicationController
+  before_action :check_admin
   before_action :set_song, only: [:show, :edit, :destroy]
 
   def index

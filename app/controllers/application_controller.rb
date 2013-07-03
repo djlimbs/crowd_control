@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
   		couples_path
   	end
   end
+  
+  private
+	def check_admin
+		authenticate_user!
+		redirect_to new_user_session_path unless current_user and current_user.is_admin?
+	end
 end

@@ -34,7 +34,7 @@ class StaticPagesController < ApplicationController
 					redirect_to couples_path
 				end
   			elsif action_name != 'guests'
-  				redirect_to users_path
+  				redirect_to new_user_session_path
   			end
   		end
   		

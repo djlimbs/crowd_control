@@ -1,4 +1,5 @@
 class ArtistsController < ApplicationController
+  before_action :check_admin
   before_action :set_artist, only: [:show, :edit, :destroy]
 
   def index
