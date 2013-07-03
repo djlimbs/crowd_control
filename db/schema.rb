@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130703033406) do
+ActiveRecord::Schema.define(version: 20130703041143) do
 
   create_table "alt_names", force: true do |t|
     t.string   "alt_name"
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(version: 20130703033406) do
 
   create_table "artists", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "chart_songs", force: true do |t|
+    t.integer  "chart_id"
+    t.boolean  "do_not_play"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "charts", force: true do |t|
+    t.string   "chart_name"
+    t.string   "chart_password"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,5 +88,14 @@ ActiveRecord::Schema.define(version: 20130703033406) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "votes", force: true do |t|
+    t.string   "voter_name"
+    t.integer  "song_id"
+    t.integer  "chart_song_id"
+    t.float    "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
