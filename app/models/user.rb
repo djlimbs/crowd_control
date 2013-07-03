@@ -8,12 +8,16 @@ class User < ActiveRecord::Base
   has_many :couples, :class_name => 'User', :foreign_key => :dj_id
   belongs_to :dj, :class_name => 'User'
   has_many :charts
-  
+
+  def guest?
+  	email.nil?
+  end
+    
   def dj?
-  	dj_id.nil?
+	!guest? and dj_id.nil?
   end
   
   def couple?
-  	!dj?
+	!guest? and !dj?
   end
 end

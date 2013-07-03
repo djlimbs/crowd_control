@@ -6,6 +6,7 @@ CrowdControl::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   devise_scope :user do
   	root to: 'devise/sessions#new'
+  	match '/guests', to: 'devise/sessions#new', via: 'get'
   end
   
   resources :users
@@ -14,6 +15,6 @@ CrowdControl::Application.routes.draw do
   
   match '/home', to: 'static_pages#home', via: 'get'
   match '/djs', to: 'static_pages#djs', via: 'get'
-  match '/guests', to: 'static_pages#guests', via: 'get'
+  match '/guests', to: 'static_pages#guests', via: 'post'
   match '/couples', to: 'static_pages#couples', via: 'get'
 end
