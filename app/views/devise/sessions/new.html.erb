@@ -52,7 +52,7 @@
 	<div id="guest">
 		<%= form_for(@user, :url => guests_path) do |guest_f| %>
 			<%= guest_f.label "Who you with?" %>
-			<%= guest_f.select(:id, options_from_collection_for_select(User.find(:all, :conditions => ['dj_id IS NOT ?', nil]), :id, :name)) %>
+			<%= guest_f.select(:id, options_from_collection_for_select(User.where('dj_id IS NOT ?', nil), :id, :name)) %>
 
 			<%= guest_f.label "Your name?" %>
 			<%= guest_f.text_field :name %>
@@ -68,7 +68,6 @@
 		<% end %>
 	</div>
 
-	<%= render "devise/shared/links" %>
 </div>
 
 <script>

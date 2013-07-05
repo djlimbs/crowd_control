@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130703041143) do
+ActiveRecord::Schema.define(version: 20130703225208) do
 
   create_table "alt_names", force: true do |t|
     t.string   "alt_name"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20130703041143) do
   end
 
   create_table "charts", force: true do |t|
-    t.string   "chart_name"
-    t.string   "chart_password"
+    t.string   "name"
+    t.string   "password"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20130703041143) do
 
   create_table "votes", force: true do |t|
     t.string   "voter_name"
-    t.integer  "song_id"
-    t.integer  "chart_song_id"
+    t.integer  "artist_song_id"
+    t.integer  "chart_id"
     t.float    "score"
     t.datetime "created_at"
     t.datetime "updated_at"

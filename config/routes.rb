@@ -3,7 +3,11 @@ CrowdControl::Application.routes.draw do
   resources :songs
   resources :alt_names
   resources :artists
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  resources :votes
+  
+  devise_for :users, :controllers => { :registrations => "registrations" } do
+  	post 'users', :to => 'users#create'
+  end
   devise_scope :user do
   	root to: 'devise/sessions#new'
   	match '/guests', to: 'devise/sessions#new', via: 'get'

@@ -4,7 +4,7 @@
     </h1>
     <div class="hero-unit">
     	<h1>
-    		The Request Line
+    		The Request Line - <%= @chart.name %>'s Chart
     		<br>
     	</h1>
     	<p>
@@ -17,17 +17,10 @@
     			<br>
     		</h3>
     		<table class="table">
-    			<tbody>
-    				<tr>
-    					<td>
-    						Pitbull - Don't Stop the Party
-    						<br>
-    					</td>
-    					<td>
-    						<a class="btn">+1</a>
-    						<br>
-    					</td>
-    				</tr>
+    			<tbody id = "chart_body">
+    				<% @chart.votes.each do |chart_song| %>
+    					<%= render "chart_song", :vote => chart_song %>
+    				<% end %>
     			</tbody>
     			<thead>
     				<tr>
@@ -36,20 +29,10 @@
     					</th>
     					<th>
     						You Like?
-    						<br>
     					</th>
     				</tr>
     			</thead>
     		</table>
     	</div>
-    	<div class="control-group">
-    		<label class="control-label">
-    			Add a new song (Artist - Song Title):
-    		</label>
-    		<div class="controls">
-    			<input class="" type="text">
-    		</div>
-    	</div>
-
-    	<a class="btn">Pretty please?!</a>
+		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @guest_name), :remote => true, :id => "new_vote_link" %>
     </div>

@@ -9,23 +9,34 @@ class StaticPagesController < ApplicationController
   	end
 
   	def guests
-  	  	@password = String.new(guest_params[:password])
-  		if @password != 'hophippo'
+  		@vote = Vote.new
+  	
+  	  	@temp_user = User.new(guest_params)
+  	  	@guest_name = @temp_user.name
+  		@couple = User.find(@temp_user.id)
+  		@dj = User.find(@couple.dj_id)
+  	  	@chart = Chart.find_by(name: @couple.name)
+  	  	
+  	  	if guest_params[:password] != @chart.password
   			redirect_to new_user_session_path, notice: 'Incorrect couple password'
   		end
-  	
-  		@guest_name = String.new(guest_params[:name])
-  		@guest_id = guest_params[:id]
-  		@couple = User.find(@guest_id)
-  		@dj = User.find(@couple.dj_id)
+  		
+  		@guest_vote = String.new
+  		
+
   	end
 
   	def couples
+  		@couple = current_user
   	end
   	
   	private
   		def check_user
   			if current_user
+  				if current_user.is_admin?
+  					redirect_to users_path
+  				end
+  			
 				if current_user.dj? and action_name != 'djs' 
 					redirect_to djs_path
 				end
