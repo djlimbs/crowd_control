@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: artists
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Artist < ActiveRecord::Base
 	has_many :artist_songs
 	has_many :songs, :through => :artist_songs

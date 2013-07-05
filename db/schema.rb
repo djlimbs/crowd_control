@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130703041143) do
+ActiveRecord::Schema.define(version: 20130627175848) do
 
   create_table "alt_names", force: true do |t|
     t.string   "alt_name"
@@ -38,35 +38,11 @@ ActiveRecord::Schema.define(version: 20130703041143) do
     t.datetime "updated_at"
   end
 
-  create_table "chart_songs", force: true do |t|
-    t.integer  "chart_id"
-    t.boolean  "do_not_play"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "charts", force: true do |t|
-    t.string   "chart_name"
-    t.string   "chart_password"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "songs", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
   end
-
-  create_table "titles", force: true do |t|
-    t.string   "song_title"
-    t.integer  "song_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "titles", ["song_id"], name: "index_titles_on_song_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -81,21 +57,9 @@ ActiveRecord::Schema.define(version: 20130703041143) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.integer  "dj_id"
-    t.boolean  "is_admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "votes", force: true do |t|
-    t.string   "voter_name"
-    t.integer  "song_id"
-    t.integer  "chart_song_id"
-    t.float    "score"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end
