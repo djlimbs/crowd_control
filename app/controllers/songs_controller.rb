@@ -14,6 +14,8 @@ class SongsController < ApplicationController
   	@song = Song.new(song_params)
   	@song_alt_names = alt_song_params[:alt_name][:alt_name].split(',')
   	@song_alt_names.each do |song_alt_name|
+  		song_alt_name.rstrip
+  		song_alt_name.lstrip
   		@song.alt_names.build(alt_name: song_alt_name)
   	end
   	
