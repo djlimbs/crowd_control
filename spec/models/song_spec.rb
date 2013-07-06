@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: songs
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#  title      :string(255)
+#
+
 require 'spec_helper'
 
 describe Song do
