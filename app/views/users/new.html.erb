@@ -1,0 +1,29 @@
+<h1 class="text-center">Crowd Control</h1>
+
+<div class="hero-unit">
+	<h2>New User</h2>
+	<%= form_for(@user) do |f| %>
+
+  		<div><%= f.label :email %>
+ 		<%= f.email_field :email, :autofocus => true %></div>
+
+  		<div><%= f.label :name %>
+  		<%= f.text_field :name %></div>
+  		
+			<div><%=fields_for(@chart) do |guest_password| %>
+			<%= guest_password.label 'Guest Password' %>
+			<%= guest_password.text_field :password %></div>
+			<% end %>
+  	
+  		<div><%= f.label :password %>
+  		<%= f.password_field :password %></div>
+
+  		<div><%= f.label :password_confirmation %>
+  		<%= f.password_field :password_confirmation %></div>
+		
+		<div><%= f.label 'Assigned DJ' %>
+		<%= f.collection_select(:dj_id, @djs, :id, :name, options ={:include_blank => 'Is a DJ'}) %></div>
+
+  		<div><%= f.submit "Create User" %></div>
+	<% end %>
+</div>

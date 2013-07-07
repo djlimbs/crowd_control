@@ -1,0 +1,7 @@
+<%= form_for @vote, :url => votes_path, :remote => true, :class => 'control-group', :id => 'new_vote' do |vote| %>
+	<%= vote.hidden_field :chart_id, :value => @chart.id %>
+	<%= vote.hidden_field :voter_name, :value => @voter_name %>
+	<%= vote.label "Add a new song (Artist - Song Title):" %>
+	<%= vote.text_field :string %><br>
+	<%= vote.submit 'Pretty please?!', :class => 'btn'%>
+<% end %>

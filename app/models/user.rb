@@ -15,6 +15,9 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  name                   :string(255)
+#  dj_id                  :integer
+#  is_admin               :boolean
 #
 
 class User < ActiveRecord::Base
