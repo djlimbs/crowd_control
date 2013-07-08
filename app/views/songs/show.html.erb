@@ -1,7 +1,7 @@
 <h1>Show song</h1>
 <p>
-<h2>Artist</h2>
 <% @song.artists.each do |artist| %>
+	<h2>Artist</h2>
 	<%= artist.name %>
 	
 	<h2>AKA</h2>
@@ -15,7 +15,7 @@
 <%= @song.alt_names.where(diff_nameable_type: 'Song').map { |s_alt| s_alt.alt_name }.join(', ') %>
 
 <h2>Chart Name</h2>
-<%= @artist_song.display_name %>
+<%= @song.display_name %>
 
 <br>
-<%= link_to  'New Song', new_song_path %>
+<%= link_to 'New Song', new_song_path %>

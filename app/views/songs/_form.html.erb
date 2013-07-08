@@ -1,0 +1,38 @@
+<%= form_for(@song) do |f| %>
+	<% if @song.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+
+			<ul>
+			<% @song.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<%= f.fields_for :artists do |builder| %>
+		<%= render 'artist_fields', :f => builder %>
+	<% end %>
+	
+	<%= link_to_add_fields "Add an artist", f, :artists %>
+
+	<fieldset>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+
+		<%= f.fields_for :alt_names do |builder| %>
+				<%= render 'alt_name_fields', :f => builder %>
+		<% end %></br>
+		<%= link_to_add_fields "Add an alternate title", f, :alt_names %>
+	</fieldset>
+	
+	<fieldset>
+		<%= f.label :display_name %>
+		<%= f.text_field :display_name %>
+	</fieldset>
+		
+  	<div class="actions">
+    	<%= f.submit %>
+  	</div>
+<% end %>

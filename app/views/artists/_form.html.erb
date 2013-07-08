@@ -1,0 +1,12 @@
+<%= form_for(@artist) do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <%= link_to 'Add an alternative name', new_alt_name_path, :remote => true, :id => "new_alt_name_link" %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

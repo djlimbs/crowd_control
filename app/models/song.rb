@@ -14,5 +14,5 @@ class Song < ActiveRecord::Base
 	has_and_belongs_to_many :artists
 	has_many :alt_names, :as => :diff_nameable
 
-	accepts_nested_attributes_for :artists, :alt_names
+	accepts_nested_attributes_for :artists, :alt_names, allow_destroy: true
 end

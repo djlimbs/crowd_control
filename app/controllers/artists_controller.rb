@@ -7,9 +7,21 @@ class ArtistsController < ApplicationController
   end
   
   def new
+  	@artist = Artist.new
   end
 
   def create
+  	@artist = Artist.new(artist_params)
+  	
+  	respond_to do |format|
+      if @artist.save
+        format.html { redirect_to @artist, notice: 'Artist was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @artist }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @artist.errors, status: :unprocessable_entity }
+      end
+    end
   end
   
   def show
@@ -32,5 +44,9 @@ class ArtistsController < ApplicationController
   private
   	def set_artist
   		@artist = Artist.find(params[:id])
+  	end
+  	
+  	def artist_params
+  		params.require(:artist).permit(:name, :alt_name => [:alt_name])
   	end
 end
