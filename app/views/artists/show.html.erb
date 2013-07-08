@@ -4,7 +4,7 @@
 <%= @artist.name %>
 <h2>Alternative Names</h2>
 <% @artist.alt_names.each do |a| %>
-	<%= a.alt_name %>
+	<%= a.alt_name %><br>
 <% end %>
 <h2>Songs</h2>
 <% @artist.songs.each do |as| %>

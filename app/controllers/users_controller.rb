@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 	
 	def edit
 		@chart = Chart.find_by(name: @user.name)
+		@djs = User.find(:all, :conditions => ['dj_id IS ?', nil])
 	end
 	
 	def new

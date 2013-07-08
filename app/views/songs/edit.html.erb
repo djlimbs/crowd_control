@@ -1,2 +1,31 @@
-<h1>Songs#edit</h1>
-<p>Find me in app/views/songs/edit.html.erb</p>
+<h1>Edit Song</h1>
+<%= form_for(@song) do |f| %>
+	<% if @song.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+
+			<ul>
+			<% @song.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<%= f.fields_for :artists do |builder| %>
+		<%= render 'name_fields', :f => builder %>
+	<% end %>	
+	
+	<p>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</p>
+	
+	<%= f.fields_for :alt_names do |builder| %>
+			<%= render 'alt_name_fields', :f => builder %>
+	<% end %>
+	
+  	<div class="actions">
+    	<%= f.submit %>
+  	</div>
+<% end %>

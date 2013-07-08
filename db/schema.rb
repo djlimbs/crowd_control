@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130703225208) do
+ActiveRecord::Schema.define(version: 20130708030550) do
 
   create_table "alt_names", force: true do |t|
     t.string   "alt_name"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20130703225208) do
     t.datetime "updated_at"
   end
 
+  create_table "artists_songs", force: true do |t|
+    t.integer "artist_id"
+    t.integer "song_id"
+  end
+
   create_table "chart_songs", force: true do |t|
     t.integer  "chart_id"
     t.boolean  "do_not_play"
@@ -57,6 +62,8 @@ ActiveRecord::Schema.define(version: 20130703225208) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.string   "display_name"
+    t.integer  "year"
   end
 
   create_table "titles", force: true do |t|
@@ -91,7 +98,7 @@ ActiveRecord::Schema.define(version: 20130703225208) do
 
   create_table "votes", force: true do |t|
     t.string   "voter_name"
-    t.integer  "artist_song_id"
+    t.integer  "song_id"
     t.integer  "chart_id"
     t.float    "score"
     t.datetime "created_at"
