@@ -1,9 +1,13 @@
 class ArtistsController < ApplicationController
   before_action :check_admin
-  before_action :set_artist, only: [:show, :edit, :destroy]
+  before_action :set_artist, only: [:show, :edit, :destroy, :update]
 
   def index
-  	@artists = Artist.all
+  	@artists = Artist.where("name like ?", "%#{params[:term]}%")
+  	respond_to do |format|
+  		format.html
+  		format.json {render json: @artists.map(&:name) }
+  	end
   end
   
   def new
@@ -30,10 +34,20 @@ class ArtistsController < ApplicationController
   def edit
   end
 
-  def destroy
-    @artist.alt_names.each do |alt_name|
-    	alt_name.destroy
+  def update
+	respond_to do |format|
+      if @artist.update_attributes(artist_params)
+        format.html { redirect_to @artist, notice: 'Artist was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @artist }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @artist.errors, status: :unprocessable_entity }
+      end
     end
+  end
+  
+  def destroy
+    @artist.alt_names.destroy_all
     @artist.destroy
     respond_to do |format|
       format.html { redirect_to artists_url }
@@ -47,6 +61,6 @@ class ArtistsController < ApplicationController
   	end
   	
   	def artist_params
-  		params.require(:artist).permit(:name, :alt_name => [:alt_name])
+  		params.require(:artist).permit(:name, :alt_names_attributes => [:alt_name, :_destroy, :id])
   	end
 end

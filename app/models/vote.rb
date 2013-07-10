@@ -12,6 +12,6 @@
 #
 
 class Vote < ActiveRecord::Base
-	belongs_to :artist_song
+	belongs_to :song
 	belongs_to :chart
 end

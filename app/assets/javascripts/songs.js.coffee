@@ -11,9 +11,13 @@ jQuery ->
 		time = new Date().getTime()
 		regexp = new RegExp($(this).data('id'), 'g')
 		$(this).before($(this).data('fields').replace(regexp, time))
+		$('.artist_name_field').autocomplete
+			source: $('.artist_name_field').data('autocomplete-source')
 		event.preventDefault()
-		
-	$('form').on 'click', '.enter_new_artist', (event) ->
-		$(this).closest('fieldset').hide()
-		$(this).closest('fieldset').next().attr hidden: false, disabled: false
-		event.preventDefault()
+	
+	$('.artist_name_field').autocomplete
+		source: $('.artist_name_field').data('autocomplete-source')
+	
+
+	$('.display_name_field').autocomplete
+		source: $('.display_name_field').data('autocomplete-source')

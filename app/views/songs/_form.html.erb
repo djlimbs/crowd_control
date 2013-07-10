@@ -29,7 +29,7 @@
 	
 	<fieldset>
 		<%= f.label :display_name %>
-		<%= f.text_field :display_name %>
+		<%= f.text_field :display_name, class: "display_name_field", data: {autocomplete_source: songs_path}%>
 	</fieldset>
 		
   	<div class="actions">

@@ -1,20 +1,6 @@
 <fieldset>
-	<%= f.label "Pick Artist" %>
-	<%= f.collection_select(:name, Artist.all, :name, :name) %>
-	<%= link_to "Create a new artist", '#', class: "enter_new_artist" %>
-</fieldset>
-
-<fieldset hidden=true disabled=true>
 	<%= f.label "Enter Artist Name" %>
-	<%= f.text_field :name %>
-	<%= f.hidden_field :_destroy %></br>
-
-	<%= f.fields_for :alt_names do |artist_alt_name| %>
-		<%= render 'alt_name_fields', :f => artist_alt_name %>
-	<% end %>
-
-
-	<%= link_to_add_fields "Add an alternate name", f, :alt_names %></br></br>
-	
-	<%= link_to "remove artist", '#', class: "remove_fields" %>
+	<%= f.text_field :name, class: "artist_name_field ui-autocomplete-input", data: {autocomplete_source: artists_path} %>
+	<%= f.hidden_field :_destroy %>
+	<%= link_to "remove artist", '#', class: "remove_fields" %>	
 </fieldset>

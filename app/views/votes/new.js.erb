@@ -1,1 +1,2 @@
 $( '#new_vote_link').hide().after('<div id = "new_vote"><%= j render("form") %></div>');
+$('.display_name_field').autocomplete({source: $('.display_name_field').data('autocomplete-source')});

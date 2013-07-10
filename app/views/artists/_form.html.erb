@@ -1,12 +1,25 @@
 <%= form_for(@artist) do |f| %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+	<% if @artist.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
 
-  <%= link_to 'Add an alternative name', new_alt_name_path, :remote => true, :id => "new_alt_name_link" %>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+			<ul>
+			<% @song.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.fields_for :alt_names do |builder| %>
+			<%= render 'alt_name_fields', :f => builder %>
+	<% end %></br>
+	<%= link_to_add_fields "Add an alternate name", f, :alt_names %>
+
+  	<div class="actions">
+    	<%= f.submit %>
+  	</div>
 <% end %>

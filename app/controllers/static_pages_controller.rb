@@ -9,8 +9,6 @@ class StaticPagesController < ApplicationController
   	end
 
   	def guests
-  		@vote = Vote.new
-  	
   	  	@temp_user = User.new(guest_params)
   	  	@guest_name = @temp_user.name
   		@couple = User.find(@temp_user.id)
