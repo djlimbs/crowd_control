@@ -19,6 +19,7 @@ class VotesController < ApplicationController
   	
 	respond_to do |format|
 	  if @vote.save
+	    @display = Chart.find(params[:chart_id]).gather_votes
 		format.html { redirect_to guests_path, notice: 'Vote was successfully created.' }
 		format.json { head :no_content }
 		format.js

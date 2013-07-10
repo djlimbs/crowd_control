@@ -39,17 +39,13 @@ class Song < ActiveRecord::Base
 		@artist = Artist.find_or_create_artist(@request_name)
 		@song = @artist.songs.where('lower(title) = ?', @request_title.downcase).first
 		
-		if @song.not_found?
+		if @song.nil?
 			@song = Song.new(title: @request_title)
-			@song.artists.build(@artist)
+			@song.artists.build(name: @artist.name)
 			@song.display_name = @display_name
 			@song.save
 		end
 		
 		return @song
-	end
-	
-	def not_found?
-		self.nil?
 	end
 end

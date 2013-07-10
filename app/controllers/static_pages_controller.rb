@@ -14,7 +14,7 @@ class StaticPagesController < ApplicationController
   		@couple = User.find(@temp_user.id)
   		@dj = User.find(@couple.dj_id)
   	  	@chart = Chart.find_by(name: @couple.name)
-  	  	
+  	  	@display = @chart.gather_votes
   	  	if guest_params[:password] != @chart.password
   			redirect_to new_user_session_path, notice: 'Incorrect couple password'
   		end

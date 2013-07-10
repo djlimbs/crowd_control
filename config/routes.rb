@@ -15,10 +15,11 @@ CrowdControl::Application.routes.draw do
   
   resources :users
   match 'users', to: 'users#index', via: 'get'
-  match 'guest_search', to: 'songs#guest_search', via: 'get'
+  
   
   match '/home', to: 'static_pages#home', via: 'get'
   match '/djs', to: 'static_pages#djs', via: 'get'
   match '/guests', to: 'static_pages#guests', via: 'post'
+  match 'guest_search', to: 'songs#guest_search', via: 'get'
   match '/couples', to: 'static_pages#couples', via: 'get'
 end

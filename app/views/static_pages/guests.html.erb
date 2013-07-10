@@ -18,8 +18,8 @@
     		</h3>
     		<table class="table">
     			<tbody id = "chart_body">
-    				<% @chart.votes.each do |chart_song| %>
-    					<%= render "chart_song", :vote => chart_song %>
+    				<% @display.each do |chart_song| %>
+    					<%= render "chart_song", :song => chart_song %>
     				<% end %>
     			</tbody>
     			<thead>

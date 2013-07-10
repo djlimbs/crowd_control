@@ -5,7 +5,6 @@ class SongsController < ApplicationController
   def guest_search
 	@display_names = Song.where("display_name like ?", "%#{params[:term]}%")
 	respond_to do |format|
-		format.html
 		format.json {render json: @display_names.map(&:display_name)}
 	end
   end
