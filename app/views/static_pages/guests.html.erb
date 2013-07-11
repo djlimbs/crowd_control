@@ -17,12 +17,7 @@
     			<br>
     		</h3>
     		<table class="table">
-    			<tbody id = "chart_body">
-    				<% @display.each do |chart_song| %>
-    					<%= render "chart_song", :song => chart_song, :voter_name => @voter_name%>
-    				<% end %>
-    			</tbody>
-    			<thead>
+				<thead>
     				<tr>
     					<th>
     						Artist - Song Title
@@ -30,8 +25,16 @@
     					<th>
     						You Like?
     					</th>
+    					<th>
+    						Score
+    					</th>
     				</tr>
     			</thead>
+    			<tbody id = "chart_body">
+    				<% @display.each do |chart_song| %>
+    					<%= render "chart_song", :song => chart_song, :voter_name => @voter_name%>
+    				<% end %>
+    			</tbody>
     		</table>
     	</div>
 		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>

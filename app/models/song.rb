@@ -13,8 +13,10 @@
 class Song < ActiveRecord::Base
 	has_and_belongs_to_many :artists
 	has_many :alt_names, :as => :diff_nameable
-
+	has_many :votes
+	
 	accepts_nested_attributes_for :artists, :alt_names, allow_destroy: true
+	validates_uniqueness_of :display_name
 	
 	def add_artists_to_song(new_artists) #accepts an array of hashes containing key, artist and adds it to the current song
   	  	new_artists.each do |key, artist|
@@ -22,6 +24,20 @@ class Song < ActiveRecord::Base
 				self.artists.push(Artist.find_or_create_artist(artist[:name]))
 			end
 		end
+	end
+	
+	def score(chart_id)
+		@votes = self.votes.where(chart_id: chart_id)
+		
+		@score = 0
+		@votes.each {|vote| @score += vote.score}
+		return @score
+	end
+	
+	def score
+		@score = 0
+		self.votes.each {|vote| @score += vote.score}
+		return @score
 	end
 	
 	def artist_names #returns an array of all artists that are part of this song

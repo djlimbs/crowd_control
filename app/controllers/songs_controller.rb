@@ -60,6 +60,7 @@ class SongsController < ApplicationController
   
   
   def destroy
+	@song.votes.destroy_all
     @song.destroy
     respond_to do |format|
     	format.html { redirect_to songs_url }
