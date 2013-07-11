@@ -26,7 +26,7 @@ class Artist < ActiveRecord::Base
 		elsif @alt_name = AltName.where("lower(alt_name) = ?", name.downcase).first
 			return Artist.find_by(id: @alt_name.diff_nameable_id)
 		else
-			return Artist.new(name: name)
+			return Artist.create(name: name)
 		end
 	end
 end

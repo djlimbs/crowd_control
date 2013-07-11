@@ -15,7 +15,7 @@ class Song < ActiveRecord::Base
 	has_many :alt_names, :as => :diff_nameable
 
 	accepts_nested_attributes_for :artists, :alt_names, allow_destroy: true
-		
+	
 	def add_artists_to_song(new_artists) #accepts an array of hashes containing key, artist and adds it to the current song
   	  	new_artists.each do |key, artist|
 			if artist[:_destroy] == 'false'
