@@ -3,11 +3,11 @@
 # Table name: songs
 #
 #  id           :integer          not null, primary key
-#  created_at   :datetime
-#  updated_at   :datetime
 #  title        :string(255)
 #  display_name :string(255)
 #  year         :integer
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 require 'spec_helper'

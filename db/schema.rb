@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130708030550) do
+ActiveRecord::Schema.define(version: 20130711015120) do
 
   create_table "alt_names", force: true do |t|
     t.string   "alt_name"
@@ -22,15 +22,6 @@ ActiveRecord::Schema.define(version: 20130708030550) do
   end
 
   add_index "alt_names", ["diff_nameable_id", "diff_nameable_type"], name: "index_alt_names_on_diff_nameable_id_and_diff_nameable_type"
-
-  create_table "artist_songs", force: true do |t|
-    t.integer  "artist_id"
-    t.integer  "song_id"
-    t.string   "display_name"
-    t.integer  "year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "artists", force: true do |t|
     t.string   "name"
@@ -43,13 +34,6 @@ ActiveRecord::Schema.define(version: 20130708030550) do
     t.integer "song_id"
   end
 
-  create_table "chart_songs", force: true do |t|
-    t.integer  "chart_id"
-    t.boolean  "do_not_play"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "charts", force: true do |t|
     t.string   "name"
     t.string   "password"
@@ -59,21 +43,12 @@ ActiveRecord::Schema.define(version: 20130708030550) do
   end
 
   create_table "songs", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "title"
     t.string   "display_name"
     t.integer  "year"
-  end
-
-  create_table "titles", force: true do |t|
-    t.string   "song_title"
-    t.integer  "song_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "titles", ["song_id"], name: "index_titles_on_song_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

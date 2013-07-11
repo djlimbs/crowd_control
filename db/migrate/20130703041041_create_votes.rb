@@ -3,7 +3,7 @@ class CreateVotes < ActiveRecord::Migration
     create_table :votes do |t|
       t.string :voter_name
       t.integer :song_id
-      t.integer :chart_song_id
+      t.integer :chart_id
       t.float :score
 
       t.timestamps

@@ -3,11 +3,11 @@
 # Table name: songs
 #
 #  id           :integer          not null, primary key
-#  created_at   :datetime
-#  updated_at   :datetime
 #  title        :string(255)
 #  display_name :string(255)
 #  year         :integer
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 class Song < ActiveRecord::Base
@@ -15,9 +15,7 @@ class Song < ActiveRecord::Base
 	has_many :alt_names, :as => :diff_nameable
 
 	accepts_nested_attributes_for :artists, :alt_names, allow_destroy: true
-	
-	validates_presence_of :title, :display_name, :artists
-	
+		
 	def add_artists_to_song(new_artists) #accepts an array of hashes containing key, artist and adds it to the current song
   	  	new_artists.each do |key, artist|
 			if artist[:_destroy] == 'false'
