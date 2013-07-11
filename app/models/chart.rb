@@ -15,7 +15,7 @@ class Chart < ActiveRecord::Base
 	belongs_to :user
 	
 	def gather_votes
-		@all_chart_votes = Vote.where(chart_id => self.id).collect{|vote| {vote.song_id => vote.score}}
+		@all_chart_votes = Vote.where(chart_id: self.id).collect{|vote| {vote.song_id => vote.score}}
 		
 		@each_song_vote = Hash.new(0)
 		@all_chart_votes.each {|vote| vote.each {|song_id, score| @each_song_vote[song_id] += score}}
