@@ -14,4 +14,6 @@
 class Vote < ActiveRecord::Base
 	belongs_to :song
 	belongs_to :chart
+	
+	validates_uniqueness_of :voter_name, :scope => [:chart_id, :song_id]
 end

@@ -41,7 +41,7 @@ class Song < ActiveRecord::Base
 		
 		if @song.nil?
 			@song = Song.new(title: @request_title)
-			@song.artists.build(name: @artist.name)
+			@song.artist_ids = @artist.id
 			@song.display_name = @display_name
 			@song.save
 		end
