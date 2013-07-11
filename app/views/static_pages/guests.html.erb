@@ -19,7 +19,7 @@
     		<table class="table">
     			<tbody id = "chart_body">
     				<% @display.each do |chart_song| %>
-    					<%= render "chart_song", :song => chart_song, :voter_name => @guest_name%>
+    					<%= render "chart_song", :song => chart_song, :voter_name => @voter_name%>
     				<% end %>
     			</tbody>
     			<thead>

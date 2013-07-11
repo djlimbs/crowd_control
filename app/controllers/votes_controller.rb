@@ -12,10 +12,10 @@ class VotesController < ApplicationController
 
   def create
 	@chart = Chart.find(params[:chart_id]) #get chart this vote is for
-	@guest_name = params[:voter_name] #get voter name
+	@voter_name = params[:voter_name] #get voter name
   	
   	@song = Song.find_or_create_song(params[:display_name]) #find or create the song vote is for
-  	@vote = Vote.new(chart_id: @chart.id, score: 1, voter_name: @guest_name, song_id: @song.id) #add vote
+  	@vote = Vote.new(chart_id: @chart.id, score: 1, voter_name: @voter_name, song_id: @song.id) #add vote
   	
 	respond_to do |format|
 	  if @vote.save

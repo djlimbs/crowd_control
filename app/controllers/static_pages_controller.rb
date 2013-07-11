@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
 
   	def guests
   	  	@temp_user = User.new(guest_params)
-  	  	@guest_name = @temp_user.name
+  	  	@voter_name = @temp_user.name
   		@couple = User.find(@temp_user.id)
   		@dj = User.find(@couple.dj_id)
   	  	@chart = Chart.find_by(name: @couple.name)
