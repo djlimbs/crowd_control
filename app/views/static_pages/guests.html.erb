@@ -9,7 +9,7 @@
     	</h1>
     	<p>
     		Make a request, rate a request. <br>
-    		Welcome <%= @guest_name %>. Have fun at <%= @couple.name %>'s party, <%= @dj.name %> is rocking it!
+    		Welcome <%= @voter_name %>. Have fun at <%= @couple.name %>'s party, <%= @dj.name %> is rocking it!
     	</p>
     	<div class="well jetstrap-highlighted">
     		<h3>
@@ -34,5 +34,5 @@
     			</thead>
     		</table>
     	</div>
-		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @guest_name), :remote => true, :id => "new_vote_link" %>
+		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>
     </div>

@@ -34,8 +34,12 @@ class Song < ActiveRecord::Base
 		@request_title = @request.last.strip
 		@display_name = String.new(@request_name + ' - ' + @request_title)
 		
-		@artist = Artist.find_or_create_artist(@request_name)
-		@song = @artist.songs.where('lower(title) = ?', @request_title.downcase).first
+		@song = Song.find_by(display_name: @display_name)
+		
+		if @song.nil?
+			@artist = Artist.find_or_create_artist(@request_name)
+			@song = @artist.songs.where('lower(title) = ?', @request_title.downcase).first
+		end
 		
 		if @song.nil?
 			@song = Song.new(title: @request_title)

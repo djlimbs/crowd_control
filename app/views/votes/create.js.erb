@@ -1,3 +1,3 @@
 $(" #new_vote").remove();
 $(" #new_vote_link").show();
-$(" #chart_body").html('<% @display.each do |chart_song| %><%= j render "static_pages/chart_song", :song => chart_song, :voter_name => @guest_name %><% end %>');
+$(" #chart_body").html('<% @display.each do |chart_song| %><%= j render "static_pages/chart_song", :song => chart_song, :voter_name => @voter_name %><% end %>');
