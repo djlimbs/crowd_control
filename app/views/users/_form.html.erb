@@ -6,13 +6,19 @@
 	<div><%= f.label :name %>
 	<%= f.text_field :name %></div>
 	
-		<div><%=fields_for(@chart) do |guest_password| %>
-		<%= guest_password.label 'Guest Password' %>
-		<%= guest_password.text_field :password %></div>
-		<% end %>
+	<% if @chart.present? %>
+		<div>
+			<%=fields_for(@chart) do |guest_password| %>
+			<%= guest_password.label 'Guest Password' %>
+			<%= guest_password.text_field :password %>
+			<% end %>
+		</div>
+	<% end %>
 
-	<div><%= f.label :password %>
-	<%= f.password_field :password %></div>
+	<div>
+		<%= f.label :password %>
+		<%= f.password_field :password %>
+	</div>
 
 	<div><%= f.label :password_confirmation %>
 	<%= f.password_field :password_confirmation %></div>

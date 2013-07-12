@@ -11,6 +11,7 @@ class ChartsController < ApplicationController
   
   def show
   	@display = @chart.gather_votes
+  	@owner = User.where(id: @chart.user_id).first
   end
 
   def edit

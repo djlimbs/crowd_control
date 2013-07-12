@@ -1,2 +1,9 @@
-<h1>Charts#edit</h1>
-<p>Find me in app/views/charts/edit.html.erb</p>
+<h1 class="text-center">Crowd Control</h1>
+
+<div class="hero-unit">
+	<h2>Edit <%= @chart.name %></h2>
+
+	<%= render 'form' %>
+
+	<%= link_to "Back", users_path %>
+</div>

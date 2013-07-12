@@ -9,13 +9,13 @@ class UsersController < ApplicationController
 	
 	def edit
 		@chart = Chart.find_by(name: @user.name)
-		@djs = User.find(:all, :conditions => ['dj_id IS ?', nil])
+		@djs = User.where(dj_id: nil, is_admin: nil)
 	end
 	
 	def new
 		@chart = Chart.new
 		@user = User.new
-		@djs = User.find(:all, :conditions => ['dj_id IS ?', nil])
+		@djs = User.where(dj_id: nil, is_admin: nil)
 	end
 
 	def create
@@ -45,6 +45,7 @@ class UsersController < ApplicationController
 		  if @user.update_attributes(user_params)
 		  	@chart = Chart.find_by(name: @user.name)
 		  	@chart.password = params[:chart][:password]
+		  	@chart.user_id = @user.dj_id
 		  	@chart.save
 			format.html { redirect_to users_path, notice: 'User was successfully updated.' }
 			format.json { head :no_content }

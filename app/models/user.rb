@@ -38,4 +38,5 @@ class User < ActiveRecord::Base
   def couple?
 	 !dj?
   end
+  
 end
