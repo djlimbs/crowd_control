@@ -1,8 +1,8 @@
 CrowdControl::Application.routes.draw do
-  resources :artist_songs
+  resources :artists
   resources :songs
   resources :alt_names
-  resources :artists
+  resources :charts
   resources :votes
   
   devise_for :users, :controllers => { :registrations => "registrations" } do
@@ -16,10 +16,10 @@ CrowdControl::Application.routes.draw do
   resources :users
   match 'users', to: 'users#index', via: 'get'
   
-  
   match '/home', to: 'static_pages#home', via: 'get'
   match '/djs', to: 'static_pages#djs', via: 'get'
   match '/guests', to: 'static_pages#guests', via: 'post'
   match 'guest_search', to: 'songs#guest_search', via: 'get'
   match '/couples', to: 'static_pages#couples', via: 'get'
+  match 'get_chart', to: 'static_pages#get_chart', via: 'get'
 end

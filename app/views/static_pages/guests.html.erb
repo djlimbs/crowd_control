@@ -1,41 +1,18 @@
-    <h1 class="text-center">
-    	Crowd Control
-    	<br>
-    </h1>
-    <div class="hero-unit">
-    	<h1>
-    		The Request Line - <%= @chart.name %>'s Chart
-    		<br>
-    	</h1>
-    	<p>
-    		Make a request, rate a request. <br>
-    		Welcome <%= @voter_name %>. Have fun at <%= @couple.name %>'s party, <%= @dj.name %> is rocking it!
-    	</p>
-    	<div class="well jetstrap-highlighted">
-    		<h3>
-    			What's been requested so far:
-    			<br>
-    		</h3>
-    		<table class="table">
-				<thead>
-    				<tr>
-    					<th>
-    						Artist - Song Title
-    					</th>
-    					<th>
-    						You Like?
-    					</th>
-    					<th>
-    						Score
-    					</th>
-    				</tr>
-    			</thead>
-    			<tbody id = "chart_body">
-    				<% @display.each do |chart_song| %>
-    					<%= render "chart_song", :song => chart_song, :voter_name => @voter_name%>
-    				<% end %>
-    			</tbody>
-    		</table>
-    	</div>
-		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>
-    </div>
+<h1 class="text-center">
+	Crowd Control
+	<br>
+</h1>
+<div class="hero-unit">
+	<h1>The Request Line</h1>
+	<p>
+		Make a request, rate a request. <br>
+		Welcome <%= @voter_name %>. Have fun at <%= @couple.name %>'s party, <%= @dj.name %> is rocking it!
+	</p>
+	<div id="chart_body">
+		<%= render 'this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
+	</div>
+	<div class="well">
+	<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>
+	</div>
+	<%= link_to 'All done!', root_path %>
+</div>

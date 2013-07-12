@@ -20,11 +20,13 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
-		@chart = Chart.new
-		@chart.user_id = @user.dj_id
-		@chart.name = @user.name
-		@chart.password = params[:chart][:password]
-		@chart.save
+		if @user.couple?
+			@chart = Chart.new
+			@chart.user_id = @user.dj_id
+			@chart.name = @user.name
+			@chart.password = params[:chart][:password]
+			@chart.save
+		end
 		respond_to do |format|
 		  if @user.save
 			format.html { redirect_to users_url, notice: 'User was successfully created.' }

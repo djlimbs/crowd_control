@@ -1,5 +1,5 @@
 <tr>
   <td><%= Song.find(song.first).display_name %></td>
-  <td><%= link_to '+1', votes_path(:chart_id => @chart.id, :voter_name => voter_name, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true %></td>
+  <%= render voter_type_path, :song => song, :this_chart_id => this_chart_id, :voter_name => voter_name %>
   <td><%= song.last %></td>
 </tr>

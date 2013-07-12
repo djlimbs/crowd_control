@@ -1,3 +1,4 @@
 $(" #new_vote").remove();
 $(" #new_vote_link").show();
-$(" #chart_body").html('<% @display.each do |chart_song| %><%= j render "static_pages/chart_song", :song => chart_song, :voter_name => @voter_name %><% end %>');
+$(" #chart_body").html('<%=j render 'static_pages/this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>');
+$(" #chart_body").append('<%= j render 'static_pages/do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name unless current_user.nil?%>');

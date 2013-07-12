@@ -31,15 +31,11 @@ class User < ActiveRecord::Base
   belongs_to :dj, :class_name => 'User'
   has_many :charts
 
-  def guest?
-  	email.nil?
-  end
-    
   def dj?
-	!guest? and dj_id.nil?
+	 dj_id.nil?
   end
   
   def couple?
-	!guest? and !dj?
+	 !dj?
   end
 end

@@ -58,7 +58,6 @@ class SongsController < ApplicationController
 	end
   end
   
-  
   def destroy
 	@song.votes.destroy_all
     @song.destroy

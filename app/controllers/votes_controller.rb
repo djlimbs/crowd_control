@@ -1,4 +1,6 @@
 class VotesController < ApplicationController
+  before_action :set_vote, only: [:destroy]
+
   def new
   	@chart = Chart.find(params[:chart_id])
   	@vote = String.new
@@ -15,7 +17,7 @@ class VotesController < ApplicationController
 	@voter_name = params[:voter_name] #get voter name
   	
   	@song = Song.find_or_create_song(params[:display_name]) #find or create the song vote is for
-  	@vote = Vote.new(chart_id: @chart.id, score: 1, voter_name: @voter_name, song_id: @song.id) #add vote
+  	@vote = Vote.new(chart_id: @chart.id, score: params[:score], voter_name: @voter_name, song_id: @song.id) #add vote
   	
 	respond_to do |format|
 	  if @vote.save
@@ -30,8 +32,28 @@ class VotesController < ApplicationController
   	end
   end
   
+  def destroy
+  	@chart = Chart.find(@vote.chart_id)
+	@voter_name = @vote.voter_name
+	
+	respond_to do |format|
+	  if @vote.destroy
+	    @display = @chart.gather_votes
+		format.html { redirect_to guests_path, notice: 'Vote was deleted.' }
+		format.js
+	  else
+		format.html { redirect_to guests_path, notice: 'didnt work' }
+		format.json { render json: @vote.errors, status: :unprocessable_entity }
+	  end
+  	end
+  end
+  
   private
   	def chart_params
   		params.require(:chart_id)
+  	end
+  	
+  	def set_vote
+  		@vote = Vote.find(params[:id])
   	end
 end

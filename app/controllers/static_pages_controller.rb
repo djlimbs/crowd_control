@@ -1,12 +1,33 @@
 class StaticPagesController < ApplicationController
-	before_filter :check_user
+	before_action :check_user, except: [:get_chart]
 	
   	def home
   	end
 
   	def djs
   		@dj = current_user
+  		@couples = @dj.couples.all
+  		@chart = Chart.find_by(name: @couples.first.name)
+  		@display = @chart.gather_votes
   	end
+
+	def couples
+		@chart = Chart.find_by(name: current_user.name)
+		@display = @chart.gather_votes
+		@voter_name = current_user.name
+	end
+
+	def get_chart
+		@chart = Chart.find_by(name: params[:name])
+ 		@display = @chart.gather_votes
+ 		@voter_name = params[:voter_name]
+ 		
+ 		respond_to do |format|
+ 			format.html
+ 			format.json
+ 			format.js
+ 		end
+ 	end
 
   	def guests
   	  	@temp_user = User.new(guest_params)
@@ -20,12 +41,6 @@ class StaticPagesController < ApplicationController
   		end
   		
   		@guest_vote = String.new
-  		
-
-  	end
-
-  	def couples
-  		@couple = current_user
   	end
   	
   	private
