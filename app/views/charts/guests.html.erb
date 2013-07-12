@@ -1,0 +1,22 @@
+<h3>
+	Request chart
+</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Artist - Song Title
+			</th>
+			<th>
+				Score
+			</th>
+		</tr>
+	</thead>
+	<tbody id = "chart_body">
+		<% @display.each do |chart_song| %>
+			<%= render "chart_song", :song => chart_song%>
+		<% end %>
+	</tbody>
+</table>
+
+<%= link_to "Back to charts", charts_path %><br>

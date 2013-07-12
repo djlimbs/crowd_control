@@ -1,0 +1,25 @@
+<div class="well jetstrap-highlighted">
+	<h3>
+		<%= this_chart_name %>'s chart
+	</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Artist - Song Title
+				</th>
+				<th>
+					<%= chart_message %>
+				</th>
+				<th>
+					Score
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% display.each do |chart_song| %>
+				<%= render "static_pages/chart_song", :song => chart_song, :voter_name => voter_name, :this_chart_id => this_chart_id unless chart_song.last == "Do not play!"%>
+			<% end %>
+		</tbody>
+	</table>
+</div>
