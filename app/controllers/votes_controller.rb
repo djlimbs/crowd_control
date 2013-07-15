@@ -21,10 +21,16 @@ class VotesController < ApplicationController
   	
 	respond_to do |format|
 	  if @vote.save
-	    @display = Chart.find(params[:chart_id]).gather_votes
+		if @chart.chart_songs[@song.id].nil?
+			@new_song = true
+			@chart.chart_songs[@song.id] = @vote.score
+			@chart.save
+		end
+	    @display = Hash.new()
+	    @display[@song.id] = params[:score]
 		format.html { redirect_to guests_path, notice: 'Vote was successfully created.' }
 		format.json { head :no_content }
-		format.js
+		format.js { }
 	  else
 		format.html { redirect_to guests_path, notice: 'didnt work' }
 		format.json { render json: @vote.errors, status: :unprocessable_entity }
@@ -35,10 +41,11 @@ class VotesController < ApplicationController
   def destroy
   	@chart = Chart.find(@vote.chart_id)
 	@voter_name = @vote.voter_name
-	
+	@song = Song.find(@vote.song_id)
 	respond_to do |format|
 	  if @vote.destroy
-	    @display = @chart.gather_votes
+	    @display = Hash.new()
+	    @display[@song.id] = nil
 		format.html { redirect_to guests_path, notice: 'Vote was deleted.' }
 		format.js
 	  else

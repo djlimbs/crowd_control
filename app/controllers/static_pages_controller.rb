@@ -1,25 +1,34 @@
 class StaticPagesController < ApplicationController
 	before_action :check_user, except: [:get_chart]
-	
-  	def home
-  	end
 
   	def djs
   		@dj = current_user
   		@couples = @dj.couples.all
-  		@chart = Chart.find_by(name: @couples.first.name)
-  		@display = @chart.gather_votes
   	end
 
 	def couples
 		@chart = Chart.find_by(name: current_user.name)
-		@display = @chart.gather_votes
+		@chart.gather_votes
+		@display = @chart.chart_songs
 		@voter_name = current_user.name
 	end
 
+  	def guests
+  	  	@voter_name = params[:user][:name]
+  		@couple = User.find(params[:user][:id])
+  		@dj = User.find(@couple.dj_id)
+  	  	@chart = Chart.find_by(name: @couple.name)
+  	  	@chart.gather_votes
+  	  	@display = @chart.chart_songs
+  	  	if guest_params[:password] != @chart.password
+  			redirect_to new_user_session_path, notice: 'Incorrect couple password'
+  		end
+  	end
+  	
 	def get_chart
 		@chart = Chart.find_by(name: params[:name])
- 		@display = @chart.gather_votes
+		@chart.gather_votes
+		@display = @chart.chart_songs
  		@voter_name = params[:voter_name]
  		
  		respond_to do |format|
@@ -28,21 +37,7 @@ class StaticPagesController < ApplicationController
  			format.js
  		end
  	end
-
-  	def guests
-  	  	@temp_user = User.new(guest_params)
-  	  	@voter_name = @temp_user.name
-  		@couple = User.find(@temp_user.id)
-  		@dj = User.find(@couple.dj_id)
-  	  	@chart = Chart.find_by(name: @couple.name)
-  	  	@display = @chart.gather_votes
-  	  	if guest_params[:password] != @chart.password
-  			redirect_to new_user_session_path, notice: 'Incorrect couple password'
-  		end
-  		
-  		@guest_vote = String.new
-  	end
-  	
+ 	
   	private
   		def check_user
   			if current_user

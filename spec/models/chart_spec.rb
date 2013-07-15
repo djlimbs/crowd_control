@@ -2,12 +2,13 @@
 #
 # Table name: charts
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  password   :string(255)
-#  user_id    :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  password    :string(255)
+#  user_id     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  chart_songs :text
 #
 
 require 'spec_helper'

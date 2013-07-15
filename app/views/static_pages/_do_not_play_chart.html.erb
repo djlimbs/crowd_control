@@ -8,13 +8,13 @@
 				<th>
 					Artist - Song Title
 				</th>
-				<th>
-				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% display.each do |chart_song| %>
+				<tr id="dnp_<%=chart_song.first%>">
 				<%= render "static_pages/chart_song", :song => chart_song, :voter_name => voter_name, :this_chart_id => this_chart_id unless chart_song.last != "Do not play!"%>
+				</tr>
 			<% end %>
 		</tbody>
 	</table>

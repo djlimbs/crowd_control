@@ -1,2 +1,2 @@
-$(" #chart_body").html('<%=j render 'static_pages/this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>');
-$(" #chart_body").append('<%= j render 'static_pages/do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name unless current_user.nil?%>');
+$( "#<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%>');
+$( "#dnp_<%= @song.id%>").html('');

@@ -1,5 +1,2 @@
-<tr>
-  <td><%= Song.find(song.first).display_name %></td>
-  <%= render voter_type_path, :song => song, :this_chart_id => this_chart_id, :voter_name => voter_name %>
-  <td><%= song.last %></td>
-</tr>
+<td><%= Song.find(song.first).display_name %></td>
+<td class="vote_type"><%= render voter_type_path, :song => song, :this_chart_id => this_chart_id, :voter_name => voter_name %></td>

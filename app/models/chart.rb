@@ -2,17 +2,20 @@
 #
 # Table name: charts
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  password   :string(255)
-#  user_id    :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  password    :string(255)
+#  user_id     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  chart_songs :text
 #
 
 class Chart < ActiveRecord::Base
 	has_many :votes
 	belongs_to :user
+	
+	serialize :chart_songs, Hash
 	
 	def gather_votes
 		@all_chart_votes = Vote.where(chart_id: self.id).collect{|vote| {vote.song_id => vote.score}}
@@ -35,7 +38,8 @@ class Chart < ActiveRecord::Base
 				@final_hash[chart_song.first] = chart_song.last
 			end
 		end
-		return @final_hash
+		self.chart_songs = @final_hash
+		self.save
 		# just a ref to get ordered display names - @chart_order.each {|song_id, score| Song.find(song_id).display_name}
 	end
 end

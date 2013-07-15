@@ -26,13 +26,6 @@
 		</div>
 	</div>
 	
-<!--	<div>
-		<%= select_tag(:email, options_from_collection_for_select(User.all, :id, :email)) %>
-		<%= User.find_each do |u| %>
-			<%= options_for_select([u.email]) %>
-		<% end %>
-	</div>
--->	
 	<div id="dj_couple">
 		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 			<%= f.label :email %>

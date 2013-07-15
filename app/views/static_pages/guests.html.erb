@@ -10,6 +10,7 @@
 	</p>
 	<div id="chart_body">
 		<%= render 'this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
+		<%= render 'do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
 	</div>
 	<div class="well">
 	<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>
