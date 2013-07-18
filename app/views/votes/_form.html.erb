@@ -1,8 +1,15 @@
-<%= form_for @vote, :url => votes_path, :remote => true, :class => 'control-group', :id => 'new_vote' do |f| %>
+<%= form_for @display_name, :url => votes_path, :remote => true, :class => 'control-group', :id => 'new_vote' do |f| %>
 	<%= f.hidden_field :chart_id, :value => @chart.id %>
 	<%= f.hidden_field :voter_name, :value => @voter_name %>
-	<%= f.hidden_field :score, :value => 1 %>
 	<%= f.label "Add a new song (Artist - Song Title):" %>
 	<%= f.text_field :display_name, class: "display_name_field", data: {autocomplete_source: guest_search_path}%>
-	<%= f.submit 'Pretty please?!', :class => 'btn'%>
+	<% if current_user.nil? or current_user.couple?%>
+		<%= f.submit 'Pretty please?!', :class => 'btn'%>
+	<% else %>
+		<%= f.submit 'CLEARED', :class => 'btn'%>
+		<%= f.submit 'Tame', :class => 'btn'%>
+		<%= f.submit 'Solid', :class => 'btn'%>
+		<%= f.submit 'Picked up!', :class => 'btn'%>
+		<%= f.submit 'RAGE', :class => 'btn'%>
+	<% end %>
 <% end %>

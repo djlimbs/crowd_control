@@ -21,4 +21,9 @@
 			<% end %>
 		</tbody>
 	</table>
+	
+	<% if !current_user.nil? and current_user.dj? %>
+			<h3>How's this gig going?</h3>
+			<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => voter_name), :remote => true, :id => "new_vote_link" %>
+	<% end %>
 </div>

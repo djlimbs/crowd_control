@@ -6,5 +6,5 @@ $( "#<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @dis
 	$( "#<%= @song.id%>").html('')
 <% end %>
 <% if @new_song == true %>
-	$(" #chart_songs").append('<%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%>');
+	$(" #chart_songs").append('<tr id=<%=@display.first.first%>><%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%></tr>');
 <% end %>

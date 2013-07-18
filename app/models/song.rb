@@ -30,13 +30,25 @@ class Song < ActiveRecord::Base
 		@votes = self.votes.where(chart_id: chart_id)
 		
 		@score = 0
-		@votes.each {|vote| @score += vote.score}
+		@votes.each do |vote| 
+			if vote.score == -100
+				@score += -1
+			else
+				@score += vote.score
+			end
+		end
 		return @score
 	end
 	
 	def score
 		@score = 0
-		self.votes.each {|vote| @score += vote.score}
+		self.votes.each do |vote| 
+			if vote.score == -100
+				@score += -1
+			else
+				@score += vote.score
+			end
+		end
 		return @score
 	end
 	
@@ -45,7 +57,11 @@ class Song < ActiveRecord::Base
 	end
 	
 	def self.find_or_create_song(request)
-		@request = request.strip.split(' - ')
+		if / - / =~ request
+			@request = request.strip.split(' - ')
+		elsif /- / =~ request
+			@request = request.strip.split('- ')
+		end
 		@request_name = @request.first.strip
 		@request_title = @request.last.strip
 		@display_name = String.new(@request_name + ' - ' + @request_title)

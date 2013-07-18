@@ -1,9 +1,12 @@
 class VotesController < ApplicationController
+  include ActiveModel::Validations
+ 
   before_action :set_vote, only: [:destroy]
+  before_action :check_display_name, only: [:create]
 
   def new
   	@chart = Chart.find(params[:chart_id])
-  	@vote = String.new
+  	@display_name = String.new
   	@voter_name = params[:voter_name]
 	respond_to do |format|
 		format.html
@@ -17,7 +20,22 @@ class VotesController < ApplicationController
 	@voter_name = params[:voter_name] #get voter name
   	
   	@song = Song.find_or_create_song(params[:display_name]) #find or create the song vote is for
-  	@vote = Vote.new(chart_id: @chart.id, score: params[:score], voter_name: @voter_name, song_id: @song.id) #add vote
+  	
+  	if params[:commit] == "Pretty please?!"
+  		@score = 1
+  	elsif params[:commit] == "CLEARED"
+  		@score = -1
+  	elsif params[:commit] == "Tame"
+  		@score = -0.5
+  	elsif params[:commit] == "Solid"
+  		@score = 0
+  	elsif params[:commit] == "Picked up!"
+  		@score = 0.5
+  	elsif params[:commit] == "RAGE"
+  		@score = 1
+  	end
+  	
+  	@vote = Vote.new(chart_id: @chart.id, score: @score, voter_name: @voter_name, song_id: @song.id) #add vote
   	
 	respond_to do |format|
 	  if @vote.save
@@ -26,7 +44,7 @@ class VotesController < ApplicationController
 			@chart.chart_songs[@song.id] = @vote.score
 			@chart.save
 		end
-	    @display = Hash.new()
+	    @display = {}
 	    @display[@song.id] = params[:score]
 		format.html { redirect_to guests_path, notice: 'Vote was successfully created.' }
 		format.json { head :no_content }
@@ -56,6 +74,10 @@ class VotesController < ApplicationController
   end
   
   private
+    def check_display_name
+    	redirect_to :back, :notice => 'Please enter the song in Artist - Song format' unless / - / =~ params[:display_name]
+    end
+  
   	def chart_params
   		params.require(:chart_id)
   	end

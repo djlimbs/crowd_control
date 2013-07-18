@@ -42,27 +42,45 @@ class SongsController < ApplicationController
   end
 
   def edit
+  	@merge_song = String.new
   end
   
   def update
-	@song.artists.clear
-	@song.add_artists_to_song(artist_params[:artists_attributes])
-	respond_to do |format|
-	  if @song.update_attributes(song_params)
-		format.html { redirect_to songs_path, notice: 'Song was successfully updated.' }
-		format.json { head :no_content }
-	  else
-		format.html { render action: 'edit', notice: 'didnt work' }
-		format.json { render json: @song.errors, status: :unprocessable_entity }
-	  end
+  	if @merge_song = Song.find_by(display_name: params[:merge_song])
+  		@song.votes.each do |vote|
+  			vote.song_id = @merge_song.id
+  			vote.save
+  		end
+  		@artist = @song.artists.first
+  		@artist.destroy if @artist.songs.count == 1
+		@song.destroy
+		respond_to do |format|
+			format.html { redirect_to songs_url }
+			format.json { head :no_content }
+		end
+  	else
+		@song.artists.clear
+		@song.add_artists_to_song(artist_params[:artists_attributes])
+		respond_to do |format|
+		  if @song.update_attributes(song_params)
+			format.html { redirect_to songs_path, notice: 'Song was successfully updated.' }
+			format.json { head :no_content }
+		  else
+			format.html { render action: 'edit', notice: 'didnt work' }
+			format.json { render json: @song.errors, status: :unprocessable_entity }
+		  end
+		end
 	end
   end
   
   def destroy
 	@song.votes.destroy_all
+	@song.artists.each do |artist|
+		artist.destroy if artist.songs.count == 1
+	end
     @song.destroy
     respond_to do |format|
-    	format.html { redirect_to songs_url }
+    	format.html { redirect_to :back }
     	format.json { head :no_content }
     end
   end

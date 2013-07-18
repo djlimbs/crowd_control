@@ -1,4 +1,6 @@
 <tr>
   <td><%= Song.find(song.first).display_name %></td>
   <td><%= song.last %></td>
+  <td><%= link_to 'Edit Song', edit_song_path(Song.find(song.first)) %>
+  <td><%= link_to 'Delete Song', Song.find(song.first), method: :delete, data: { confirm: 'Are you sure?' } %>
 </tr>

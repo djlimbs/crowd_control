@@ -10,7 +10,8 @@ class ChartsController < ApplicationController
   end
   
   def show
-  	@display = @chart.gather_votes
+  	@chart.gather_votes
+  	@display = @chart.chart_songs
   	@owner = User.where(id: @chart.user_id).first
   end
 

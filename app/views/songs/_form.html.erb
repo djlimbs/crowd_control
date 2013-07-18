@@ -31,7 +31,16 @@
 		<%= f.label :display_name %>
 		<%= f.text_field :display_name, class: "display_name_field", data: {autocomplete_source: songs_path}%>
 	</fieldset>
-		
+	
+	<% if @merge_song %>	
+		<fieldset>
+			<%= fields_for(@merge_song) do |field| %>
+				<%= field.label "Merge with another song" %>
+				<%= field.text_field :merge_song, class: "display_name_field", data: {autocomplete_source: songs_path}%>
+			<% end %>
+		</fieldset>
+	<% end %>
+	
   	<div class="actions">
     	<%= f.submit %>
   	</div>
