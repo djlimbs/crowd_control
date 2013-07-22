@@ -37,6 +37,8 @@ class VotesController < ApplicationController
   	
   	if params[:commit] == "Pretty please?!"
   		@score = 1
+  	elsif params[:commit] == "Play this!"
+  		@score = 2
   	elsif params[:commit] == "CLEARED"
   		@score = -1.5
   	elsif params[:commit] == "Tame"
@@ -47,6 +49,8 @@ class VotesController < ApplicationController
   		@score = 1
   	elsif params[:commit] == "RAGE"
   		@score = 1.5
+  	elsif params[:commit] == "Do not play!"
+  		@score = -100
   	else
   		@score = params[:score]
   	end

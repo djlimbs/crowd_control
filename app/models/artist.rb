@@ -32,7 +32,9 @@ class Artist < ActiveRecord::Base
 		elsif @alt_name = AltName.where("lower(alt_name) = ?", @name.downcase).first
 			return Artist.find_by(id: @alt_name.diff_nameable_id)
 		else
-			return Artist.create(name: @name)
+			@artist = Artist.create(name: @name)
+			@artist.songs.create(title: "Anything by " + @artist.name, display_name: "Anything by " + @artist.name)
+			return @artist
 		end
 	end
 end

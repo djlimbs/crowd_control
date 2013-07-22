@@ -5,6 +5,10 @@ $( "#<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @dis
 	$( "#dnp_<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%>');
 	$( "#<%= @song.id%>").html('')
 <% end %>
-<% if @new_song == true %>
+<% if @new_song and @vote.score != -100%>
 	$(" #chart_songs").append('<tr id=<%=@display.first.first%>><%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%></tr>');
+	$(" #do_not_play_chart_songs").append('<tr id="dnp_<%=@display.first.first%>"></tr>');
+<% elsif @new_song and @vote.score == -100%>
+	$(" #chart_songs").append('<tr id=<%=@display.first.first%>></tr>');
+	$(" #do_not_play_chart_songs").append('<tr id="dnp_<%=@display.first.first%>"><%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%></tr>');
 <% end %>

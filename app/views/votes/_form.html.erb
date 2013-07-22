@@ -6,13 +6,16 @@
 	<%= f.label "Song title: (if you forgot who sings it, just fill this out and we'll search our database)" %>
 	<%= f.text_field :title, class: "display_name_field", data: {autocomplete_source: guest_song_search_path } %>
 	<br>
-	<% if current_user.nil? or current_user.couple?%>
+	<% if current_user.nil?%>
 		<%= f.submit 'Pretty please?!', :class => 'btn'%>
-	<% else %>
+	<% elsif current_user.dj? %>
 		<%= f.submit 'CLEARED', :class => 'btn'%>
 		<%= f.submit 'Tame', :class => 'btn'%>
 		<%= f.submit 'Solid', :class => 'btn'%>
 		<%= f.submit 'Picked up!', :class => 'btn'%>
 		<%= f.submit 'RAGE', :class => 'btn'%>
+	<% else %>
+		<%= f.submit 'Play this!', :class => 'btn'%>
+		<%= f.submit 'Do not play!', :class => 'btn'%>
 	<% end %>
 <% end %>
