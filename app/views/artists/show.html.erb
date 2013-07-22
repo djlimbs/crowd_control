@@ -7,7 +7,12 @@
 	<%= a.alt_name %><br>
 <% end %>
 <h2>Songs</h2>
+<table>
 <% @artist.songs.each do |as| %>
-	<%= as.title %><br>
+	<tr>
+	<td><%= as.title %></td>
+	<td><%= link_to "Edit Song", edit_song_path(as) %></td>
+	</tr>
 <% end %>
+</table>
 <%= link_to "See all artists", artists_path %></br>

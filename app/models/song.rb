@@ -17,6 +17,7 @@ class Song < ActiveRecord::Base
 	
 	accepts_nested_attributes_for :artists, :alt_names, allow_destroy: true
 	validates_uniqueness_of :display_name
+	default_scope order('display_name')
 	
 	def add_artists_to_song(new_artists) #accepts an array of hashes containing key, artist and adds it to the current song
   	  	new_artists.each do |key, artist|
@@ -56,25 +57,25 @@ class Song < ActiveRecord::Base
 		return song.artists.collect{|artist| artist.name }
 	end
 	
-	def self.find_or_create_song(request)
-		if / - / =~ request
-			@request = request.strip.split(' - ')
-		elsif /- / =~ request
-			@request = request.strip.split('- ')
-		end
-		@request_name = @request.first.strip
-		@request_title = @request.last.strip
-		@display_name = String.new(@request_name + ' - ' + @request_title)
-		
-		@song = Song.find_by(display_name: @display_name)
-		
-		if @song.nil?
-			@artist = Artist.find_or_create_artist(@request_name)
-			@song = @artist.songs.where('lower(title) = ?', @request_title.downcase).first
+	def self.find_or_create_song(name, title)
+		if name == ""
+			@display_name = "Unknown Artist - " + title
+			@song = Song.find_by(title: title)
+		elsif title == ""
+			@artist = Artist.find_or_create_artist(name)
+			@song = Song.find_by(title: "Anything by " + @artist.name)
+		else
+			@display_name = String.new(name + ' - ' + title)
+			@song = Song.find_by(display_name: @display_name)
 		end
 		
 		if @song.nil?
-			@song = Song.new(title: @request_title)
+			@artist = Artist.find_or_create_artist(name)
+			@song = @artist.songs.where('lower(title) = ?', title.downcase).first
+		end
+		
+		if @song.nil?
+			@song = Song.new(title: title)
 			@song.artist_ids = @artist.id
 			@song.display_name = @display_name
 			@song.save

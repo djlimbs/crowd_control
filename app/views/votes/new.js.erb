@@ -1,2 +1,17 @@
 $( '#new_vote_link').hide().after('<div id = "new_vote"><%= j render("form") %></div>');
-$('.display_name_field').autocomplete({source: $('.display_name_field').data('autocomplete-source')});
+$('.artist_name_field').autocomplete({source: $('.artist_name_field').data('autocomplete-source')});
+$('.display_name_field').autocomplete({
+	source: function(request, response) {
+		$.ajax({
+			url: "/guest_song_search",
+			dataType: "json",
+			data: {
+				term: request.term,
+				artist: $('.artist_name_field').val()
+			},
+			success: function(data) {
+				response(data);
+			}
+		});
+	},
+})

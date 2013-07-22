@@ -18,6 +18,5 @@ jQuery ->
 	$('.artist_name_field').autocomplete
 		source: $('.artist_name_field').data('autocomplete-source')
 	
-
 	$('.display_name_field').autocomplete
 		source: $('.display_name_field').data('autocomplete-source')

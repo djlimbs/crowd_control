@@ -2,11 +2,10 @@ class VotesController < ApplicationController
   include ActiveModel::Validations
  
   before_action :set_vote, only: [:destroy]
-  before_action :check_display_name, only: [:create]
 
   def new
   	@chart = Chart.find(params[:chart_id])
-  	@display_name = String.new
+  	@vote_params = String.new
   	@voter_name = params[:voter_name]
 	respond_to do |format|
 		format.html
@@ -19,20 +18,37 @@ class VotesController < ApplicationController
 	@chart = Chart.find(params[:chart_id]) #get chart this vote is for
 	@voter_name = params[:voter_name] #get voter name
   	
-  	@song = Song.find_or_create_song(params[:display_name]) #find or create the song vote is for
+  	@display_name = params[:display_name]
+  	@display_name = params[:name] + " - " + params[:title] if @display_name.nil?
+  	
+  	@name = params[:name]
+  	if @name.nil?
+  		if / - / =~ @display_name
+  			@name = @display_name.split(" - ").first
+  		else
+  			@name = ""
+  		end
+  	end
+  	
+  	@title = params[:title]
+  	@title = @display_name.split(" - ").last if @title.nil?
+  	  	
+  	@song = Song.find_or_create_song(@name, @title) #find or create the song vote is for
   	
   	if params[:commit] == "Pretty please?!"
   		@score = 1
   	elsif params[:commit] == "CLEARED"
-  		@score = -1
+  		@score = -1.5
   	elsif params[:commit] == "Tame"
-  		@score = -0.5
+  		@score = -1
   	elsif params[:commit] == "Solid"
   		@score = 0
   	elsif params[:commit] == "Picked up!"
-  		@score = 0.5
-  	elsif params[:commit] == "RAGE"
   		@score = 1
+  	elsif params[:commit] == "RAGE"
+  		@score = 1.5
+  	else
+  		@score = params[:score]
   	end
   	
   	@vote = Vote.new(chart_id: @chart.id, score: @score, voter_name: @voter_name, song_id: @song.id) #add vote

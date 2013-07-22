@@ -16,7 +16,7 @@ class ArtistsController < ApplicationController
 
   def create
   	@artist = Artist.new(artist_params)
-  	
+  	@artist.songs.build(title: "Anything by " + artist_params[:name], display_name: "Anything by " + artist_params[:name])
   	respond_to do |format|
       if @artist.save
         format.html { redirect_to @artist, notice: 'Artist was successfully created.' }

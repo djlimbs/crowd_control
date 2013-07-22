@@ -1,11 +1,19 @@
 class SongsController < ApplicationController
-  before_action :check_admin, except: [:guest_search] #so that guests can get autocomplete data
+  before_action :check_admin, except: [:guest_artist_search, :guest_song_search] #so that guests can get autocomplete data
   before_action :set_song, only: [:show, :edit, :update, :destroy]
 
-  def guest_search
-	@display_names = Song.where("display_name like ?", "%#{params[:term]}%")
+  def guest_artist_search
+	@display_names = Artist.where("name like ?", "%#{params[:term]}%")
 	respond_to do |format|
-		format.json {render json: @display_names.map(&:display_name)}
+		format.json {render json: @display_names.map(&:name)}
+	end
+  end
+  
+  def guest_song_search
+	@artist = Artist.find_by(name: "#{params[:artist]}")
+	@display_songs = @artist.songs.where("title like ?", "%#{params[:term]}%")
+	respond_to do |format|
+		format.json {render json: @display_songs.map(&:title)}
 	end
   end
   
