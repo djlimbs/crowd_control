@@ -1,22 +1,20 @@
-    <h1 class="text-center">
-    	Crowd Control
-    	<br>
-    </h1>
-    <div class="hero-unit">
-    	<h1>
-    		Couples
-    		<br>
-    	</h1>
-    	<p>
-    		Check out what your guests asked for, and veto the lame ones! Also browse our 80% list and Like + Love tracks!
-    		<br>
-    	</p>
-    	<div id="chart_body">
-			<%= render 'this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
-			<%= render 'do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
-		</div>
-		<div class="well">
+<div class="hero-unit">
+	<h1>
+		Couples
+		<br>
+	</h1>
+	<p>
+		Check out what your guests asked for, and veto the lame ones! Also browse our 80% list and Like + Love tracks!
+		<br>
+	</p>
+	<div id="chart_body">
+		<%= render 'this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
+		<%= render 'do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
+	</div>
+	<div class="well">
 		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>
 	</div>
-
-    </div>
+	<% if current_user %>
+		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	<% end %>
+</div>

@@ -1,5 +1,3 @@
-<h1 class="text-center">Crowd Control</h1>
-
 <div class="hero-unit">
     <h1>
     	Come on in<br>
@@ -62,23 +60,3 @@
 	</div>
 
 </div>
-
-<script>
-	function checkValue() {
-		var loginType = $( "#guestType").val();
-
-		if (loginType === "guest"){
-			$( "#dj_couple").hide();
-			$( "#guest").fadeIn();
-		}
-		else{
-			$( "#dj_couple").fadeIn();
-			$( "#guest").hide();
-		}
-	}
-
-	$(function() {
-		$(" #guest").hide();
-		$(" #guestType").change(checkValue);
-	});
-</script>

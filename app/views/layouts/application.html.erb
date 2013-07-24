@@ -15,11 +15,14 @@
 	<p class="alert"><%= alert %></p>
 <% end %>
 
+<div class="well">
+
+<h2 class="text-left">Crowd Control</h2>
+
 <%= yield %>
-
-<% if current_user %>
-	<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-<% end %>
-
+</div>
+	<% if current_user and current_user.is_admin %>
+		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	<% end %>
 </body>
 </html>

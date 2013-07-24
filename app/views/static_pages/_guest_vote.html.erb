@@ -1,5 +1,5 @@
 <% if @vote = Vote.where(:chart_id => this_chart_id, :voter_name => voter_name, :song_id => song.first).first %>
-	<%= link_to 'Actually, no', @vote, method: :delete, :remote => true, :class => 'btn' unless song.last == "Do not play!"%>
+	<%= link_to 'Actually, no', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse' unless song.last == "Do not play!"%>
 <% else %>
-	<%= link_to '+1', votes_path(:chart_id => this_chart_id, :voter_name => voter_name, :score => 1, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :form_class => 'btn-group', :class => 'btn' unless song.last == "Do not play!" %>
+	<%= link_to '+1', votes_path(:chart_id => this_chart_id, :voter_name => voter_name, :score => 1, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' unless song.last == "Do not play!" %>
 <% end %>

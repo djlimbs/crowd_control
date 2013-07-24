@@ -1,1 +1,40 @@
+$tableBackgroundAccent: snow;
+
 @import "bootstrap";
+.hero-unit a {
+	color: mediumblue;
+}
+h2 {
+	font-size: 36pt;
+	color: black;
+}
+body {
+	background-color: linen;
+}
+.hero-unit {
+	color: black;
+	background-color: #E6A332;
+}
+.well a {
+	color: mediumblue;
+}
+.well .btn{
+	color: white;
+}
+.well{
+	background-color: linen;
+	border: 0pt;
+}
+.btn {
+	@extend .btn-info;
+}
+table {
+	@extend .table;
+	@extend .table-striped;
+}
+.notice {
+	float: right;
+}
+.alert {
+	float: right;
+}

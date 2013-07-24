@@ -1,11 +1,11 @@
 <% if @vote = Vote.where(:chart_id => this_chart_id, :voter_name => voter_name, :song_id => song.first).first %>
-	<%= link_to 'Oops, take that back', @vote, method: :delete, :remote => true, :class => 'btn' unless song.last == "Do not play!" or @vote.score == -100 %>
-	<%= link_to 'Actually, it\'s fine', @vote, method: :delete, :remote => true, :class => 'btn' if @vote.score == -100 && song.last != "Do not play!"%>
+	<%= link_to 'Oops, take that back', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse' unless song.last == "Do not play!" or @vote.score == -100 %>
+	<%= link_to 'Actually, it\'s fine', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse' if @vote.score == -100 && song.last != "Do not play!"%>
 <% else %>
 	<%= link_to 'Hell no! Veto!', votes_path(:chart_id => this_chart_id, :voter_name => voter_name, :score => -100, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' unless song.last == "Do not play!" %>
-	<%= link_to 'I want it too!', votes_path(:chart_id => this_chart_id, :voter_name => voter_name, :score => 2, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :form_class => 'btn-group', :class => 'btn' %>
+	<%= link_to 'I want it too!', votes_path(:chart_id => this_chart_id, :voter_name => voter_name, :score => 2, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' %>
 <% end %>
 <% if song.last == "Do not play!" %>
 	<% @vote = Vote.where(:chart_id => this_chart_id, :voter_name => voter_name, :song_id => song.first).first %>
-	<%= link_to 'Actually, it\'s fine', @vote, method: :delete, :remote => true, :class => 'btn' unless song.last != "Do not play!" %>
+	<%= link_to 'Actually, it\'s fine', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse' unless song.last != "Do not play!" %>
 <% end %>
