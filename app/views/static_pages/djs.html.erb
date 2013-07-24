@@ -14,10 +14,15 @@
 	-->
 	<h3>Charts</h3>
 	
+	<div class="well">
+	<div class="row">
 	<% @couples.each do |couple| %>
-		<%= link_to couple.name, get_chart_path(name: couple.name, voter_name: @dj.name), :remote => true %><br>
+		<div class="span2">
+		<%= link_to couple.name, get_chart_path(name: couple.name, voter_name: @dj.name), :remote => true %>
+		</div>
 	<% end %>
-	
+	</div>
+	</div>
 	<div id="chart_body">
 	</div>
 	
