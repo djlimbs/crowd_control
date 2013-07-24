@@ -40,6 +40,5 @@ class Chart < ActiveRecord::Base
 		end
 		self.chart_songs = @final_hash
 		self.save
-		# just a ref to get ordered display names - @chart_order.each {|song_id, score| Song.find(song_id).display_name}
 	end
 end

@@ -1,2 +1,5 @@
 <td><%= Song.find(song.first).display_name %></td>
 <td class="vote_type"><%= render voter_type_path, :song => song, :this_chart_id => this_chart_id, :voter_name => voter_name %></td>
+<% if current_user and current_user.dj? %>
+	<td><%= song.last %></td>
+<% end %>

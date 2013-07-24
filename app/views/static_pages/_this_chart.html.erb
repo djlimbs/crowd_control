@@ -11,6 +11,11 @@
 				<th>
 					<%= chart_message %>
 				</th>
+				<% if current_user and current_user.dj? %>
+					<th>
+						Score
+					</th>
+				<% end %>
 			</tr>
 		</thead>
 		<tbody id="chart_songs">

@@ -18,12 +18,12 @@ class VotesController < ApplicationController
 	@chart = Chart.find(params[:chart_id]) #get chart this vote is for
 	@voter_name = params[:voter_name] #get voter name
   	
-  	@display_name = params[:display_name]
-  	@display_name = params[:name] + " - " + params[:title] if @display_name.nil?
+  	@display_name = params[:display_name] #votes by links are entered via display name
+  	@display_name = params[:name] + " - " + params[:title] if @display_name.nil? #votes by typing are entered by artist and song title fields
   	
   	@name = params[:name]
   	if @name.nil?
-  		if / - / =~ @display_name
+  		if / - / =~ @display_name #check if artist name was even entered, if not, leave @name blank.
   			@name = @display_name.split(" - ").first
   		else
   			@name = ""
@@ -32,7 +32,7 @@ class VotesController < ApplicationController
   	
   	@title = params[:title]
   	@title = @display_name.split(" - ").last if @title.nil?
-  	  	
+  	
   	@song = Song.find_or_create_song(@name, @title) #find or create the song vote is for
   	
   	if params[:commit] == "Pretty please?!"
@@ -61,11 +61,15 @@ class VotesController < ApplicationController
 	  if @vote.save
 		if @chart.chart_songs[@song.id].nil?
 			@new_song = true
-			@chart.chart_songs[@song.id] = @vote.score
+			@chart.chart_songs[@song.id] = 0
 			@chart.save
 		end
 	    @display = {}
-	    @display[@song.id] = params[:score]
+	    if @score == "-100" or @chart.chart_songs[@song.id] == "Do not play!"
+	    	@display[@song.id] = @score
+	    else
+	    	@display[@song.id] = @chart.chart_songs[@song.id] + @score.to_f
+	    end
 		format.html { redirect_to guests_path, notice: 'Vote was successfully created.' }
 		format.json { head :no_content }
 		format.js { }
@@ -83,7 +87,11 @@ class VotesController < ApplicationController
 	respond_to do |format|
 	  if @vote.destroy
 	    @display = Hash.new()
-	    @display[@song.id] = nil
+	    if @chart.chart_songs[@song.id] == "Do not play!"
+	    	@display[@song.id] = nil
+	    else
+	    	@display[@song.id] = @chart.chart_songs[@song.id]
+	    end
 		format.html { redirect_to guests_path, notice: 'Vote was deleted.' }
 		format.js
 	  else
