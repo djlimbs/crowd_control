@@ -14,6 +14,10 @@ body {
 .hero-unit {
 	color: black;
 	background-color: #E6A332;
+	-moz-box-shadow: 0px 4px 10px 1px gray;
+    -webkit-box-shadow: 0px 4px 10px 1px gray;
+    box-shadow: 0px 4px 10px 1px gray;
+
 }
 .well a {
 	color: mediumblue;
@@ -30,11 +34,9 @@ body {
 }
 table {
 	@extend .table;
-	@extend .table-striped;
+	@extend .table-hover;
 }
 .notice {
-	float: right;
 }
 .alert {
-	float: right;
 }
