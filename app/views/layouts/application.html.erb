@@ -15,15 +15,18 @@
 	<p class="alert"><%= alert %></p>
 <% end %>
 
+<!--<%= image_tag "ca_logo.jpg", class: "style_logo"%>-->
+
 <div class="well">
 
-<h2 class="text-left">Crowd Control</h2>
-<p style="color:darkslategray;font-weight:bold;">- A place for guest requests -</p>
+<h2 class="text-center">Crowd Control</h2>
+<p style="color:darkslategray;font-weight:bold;text-align:center;">- A place for guest requests -</p>
 
 <%= yield %>
 </div>
-	<% if current_user and current_user.is_admin %>
-		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-	<% end %>
+
+<% if current_user and current_user.is_admin %>
+	<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+<% end %>
 </body>
 </html>
