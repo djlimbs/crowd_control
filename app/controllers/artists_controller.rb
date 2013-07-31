@@ -48,6 +48,9 @@ class ArtistsController < ApplicationController
   
   def destroy
     @artist.alt_names.destroy_all
+    @artist.songs.each do |song|
+    	song.destroy unless song.artists.count > 1
+    end
     @artist.destroy
     respond_to do |format|
       format.html { redirect_to artists_url }
