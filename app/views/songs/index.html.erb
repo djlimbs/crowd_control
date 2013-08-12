@@ -25,3 +25,9 @@
 <br>
 
 <%= link_to 'New Song', new_song_path %>
+<br><br>
+<%= form_tag import_songs_path, multipart: true do %>
+	<%= label_tag 'Import songs csv file' %>
+	<%= file_field_tag :file %>
+	<%= submit_tag "Import" %>
+<% end %>

@@ -58,6 +58,11 @@ class ArtistsController < ApplicationController
     end
   end
 
+  def import
+  	Artist.import(params[:file])
+  	redirect_to artists_url, notice: "Imported successfully"
+  end
+
   private
   	def set_artist
   		@artist = Artist.find(params[:id])

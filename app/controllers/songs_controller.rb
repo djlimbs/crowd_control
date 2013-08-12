@@ -93,6 +93,11 @@ class SongsController < ApplicationController
     end
   end
   
+  def import
+  	Song.import(params[:file])
+  	redirect_to songs_url, notice: "Imported successfully"
+  end
+  
   private
   	def set_song
   		@song = Song.find(params[:id])

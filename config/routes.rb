@@ -1,6 +1,10 @@
 CrowdControl::Application.routes.draw do
-  resources :artists
-  resources :songs
+  resources :artists do
+  	collection { post :import }
+  end
+  resources :songs do
+  	collection { post :import }
+  end
   resources :alt_names
   resources :charts
   resources :votes

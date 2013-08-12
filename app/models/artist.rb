@@ -23,7 +23,6 @@ class Artist < ActiveRecord::Base
 	end
 	
 	def self.find_or_create_artist(name)
-		
 		@name = String.new(name)
 		@name = "Unknown Artist" if @name == ""
 	
@@ -35,6 +34,17 @@ class Artist < ActiveRecord::Base
 			@artist = Artist.create(name: @name)
 			@artist.songs.create(title: "Anything by " + @artist.name, display_name: "Anything by " + @artist.name)
 			return @artist
+		end
+	end
+	
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			@artist = Artist.find_or_create_artist(row.to_hash["Name"])
+			if row.to_hash["AltNames"]
+				row.to_hash["AltNames"].split("|").each do |alt_name|
+					@artist.alt_names.find_or_create_by(alt_name: alt_name)
+				end
+			end
 		end
 	end
 end

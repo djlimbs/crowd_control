@@ -25,3 +25,9 @@
 <br>
 
 <%= link_to 'New Artist', new_artist_path %>
+<br><br>
+<%= form_tag import_artists_path, multipart: true do %>
+	<%= label_tag 'Import artists csv file' %>
+	<%= file_field_tag :file %>
+	<%= submit_tag "Import" %>
+<% end %>

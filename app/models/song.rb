@@ -83,4 +83,15 @@ class Song < ActiveRecord::Base
 		
 		return @song
 	end
+	
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			@song = Song.find_or_create_song(row.to_hash["ArtistName"], row.to_hash["SongTitle"])
+			if row.to_hash["AltNames"]
+				row.to_hash["AltNames"].split("|").each do |alt_name|
+					@song.alt_names.find_or_create_by(alt_name: alt_name)
+				end
+			end
+		end
+	end	
 end
