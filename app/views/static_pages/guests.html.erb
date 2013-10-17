@@ -12,7 +12,6 @@
 	<div class="well">
 		<%= link_to 'Add a song', new_vote_path(:chart_id => @chart.id, :voter_name => @voter_name), :remote => true, :id => "new_vote_link" %>
 	</div>
-	<%= render 'do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>
 
-	<%= link_to 'All done!', root_path %>
+	<%= link_to 'All done!', '/guests' %>
 </div>

@@ -1,2 +1,2 @@
-$("#chart_body").html("<%= j render 'this_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>");
-$("#chart_body").append("<%= j render 'do_not_play_chart', :display => @display, :voter_name => @voter_name, :this_chart_id => @chart.id, :this_chart_name => @chart.name%>");
+$("#chart_body").html("<%= j render 'this_chart'%>");
+$("#chart_body").append("<%= j render 'do_not_play_chart'%>");

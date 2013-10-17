@@ -7,17 +7,17 @@ class VotesController < ApplicationController
   	@chart = Chart.find(params[:chart_id])
   	@vote_params = String.new
   	@voter_name = params[:voter_name]
-	respond_to do |format|
-		format.html
-		format.json { render json: @vote }
-		format.js
-	end
+  	respond_to do |format|
+  		format.html
+  		format.json { render json: @vote }
+  		format.js
+    end
   end
 
   def create
-	@chart = Chart.find(params[:chart_id]) #get chart this vote is for
-	@voter_name = params[:voter_name] #get voter name
-  	
+  	@chart = Chart.find(params[:chart_id]) #get chart this vote is for
+  	@voter_name = params[:voter_name] #get voter name
+    	
   	@display_name = params[:display_name] #votes by links are entered via display name
   	@display_name = params[:name] + " - " + params[:title] if @display_name.nil? #votes by typing are entered by artist and song title fields
   	
@@ -56,48 +56,50 @@ class VotesController < ApplicationController
   	end
   	
   	@vote = Vote.new(chart_id: @chart.id, score: @score, voter_name: @voter_name, song_id: @song.id) #add vote
-  	
-	respond_to do |format|
-	  if @vote.save
-		if @chart.chart_songs[@song.id].nil?
-			@new_song = true
-			@chart.chart_songs[@song.id] = 0
-			@chart.save
-		end
-	    @display = {}
-	    if @score == "-100" or @chart.chart_songs[@song.id] == "Do not play!"
-	    	@display[@song.id] = @score
-	    else
-	    	@display[@song.id] = @chart.chart_songs[@song.id] + @score.to_f
-	    end
-		format.html { redirect_to guests_path, notice: 'Vote was successfully created.' }
-		format.json { head :no_content }
-		format.js { }
-	  else
-		format.html { redirect_to guests_path, notice: 'didnt work' }
-		format.json { render json: @vote.errors, status: :unprocessable_entity }
-	  end
+    	
+  	respond_to do |format|
+  	  if @vote.save
+    		if @chart.chart_songs[@song.id].nil?
+    			@new_song = true
+    			@chart.chart_songs[@song.id] = 0
+    			@chart.save
+    		end
+
+        @display = {}
+        if @score == "-100" or @chart.chart_songs[@song.id] == "Do not play!"
+        	@display[@song.id] = @score
+        else
+        	@display[@song.id] = @chart.chart_songs[@song.id] + @score.to_f
+        end
+
+    		format.html { redirect_to guests_path, notice: 'Vote was successfully created.' }
+    		format.json { head :no_content }
+    		format.js { }
+  	  else
+    		format.html { redirect_to guests_path, notice: 'didnt work' }
+    		format.json { render json: @vote.errors, status: :unprocessable_entity }
+  	  end
   	end
   end
   
   def destroy
   	@chart = Chart.find(@vote.chart_id)
-	@voter_name = @vote.voter_name
-	@song = Song.find(@vote.song_id)
-	respond_to do |format|
-	  if @vote.destroy
-	    @display = Hash.new()
-	    if @chart.chart_songs[@song.id] == "Do not play!"
-	    	@display[@song.id] = nil
-	    else
-	    	@display[@song.id] = @chart.chart_songs[@song.id]
-	    end
-		format.html { redirect_to guests_path, notice: 'Vote was deleted.' }
-		format.js
-	  else
-		format.html { redirect_to guests_path, notice: 'didnt work' }
-		format.json { render json: @vote.errors, status: :unprocessable_entity }
-	  end
+  	@voter_name = @vote.voter_name
+  	@song = Song.find(@vote.song_id)
+  	respond_to do |format|
+  	  if @vote.destroy
+  	    @display = Hash.new()
+  	    if @chart.chart_songs[@song.id] == "Do not play!"
+  	    	@display[@song.id] = nil
+  	    else
+  	    	@display[@song.id] = @chart.chart_songs[@song.id]
+  	    end
+  		format.html { redirect_to guests_path, notice: 'Vote was deleted.' }
+  		format.js
+  	  else
+  		format.html { redirect_to guests_path, notice: 'didnt work' }
+  		format.json { render json: @vote.errors, status: :unprocessable_entity }
+  	  end
   	end
   end
   

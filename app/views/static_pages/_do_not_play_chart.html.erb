@@ -1,6 +1,6 @@
 <div class="well jetstrap-highlighted">
 	<h3>
-		<%= this_chart_name %>'s DO NOT PLAY chart
+		<%= @chart.name %>'s DO NOT PLAY chart
 	</h3>
 	<table>
 		<thead>
@@ -11,9 +11,9 @@
 			</tr>
 		</thead>
 		<tbody id = "do_not_play_chart_songs">
-			<% display.each do |chart_song| %>
+			<% @display.each do |chart_song| %>
 				<tr id="dnp_<%=chart_song.first%>">
-				<%= render "static_pages/chart_song", :song => chart_song, :voter_name => voter_name, :this_chart_id => this_chart_id if chart_song.last == "Do not play!"%>
+				<%= render "static_pages/chart_song", :song => chart_song, :voter_name => @voter_name, :this_chart_id => @chart.id if chart_song.last == "Do not play!"%>
 				</tr>
 			<% end %>
 		</tbody>

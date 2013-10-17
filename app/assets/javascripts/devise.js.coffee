@@ -2,11 +2,3 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
-	$('#guest').hide()
-	$('#guestType').change ->
-		if $('#guestType').val() == "guest"
-			$( "#dj_couple").hide()
-			$( "#guest").fadeIn()
-		else
-			$( "#dj_couple").fadeIn()
-			$( "#guest").hide()
