@@ -1,0 +1,28 @@
+<div class="hero-unit">
+    <h1>
+    	Come on in<br>
+    </h1>
+	<p>
+    		Are you on the list?
+    </p>
+
+	<div id="guest">
+		<%= form_for(:user, :url => guests_path) do |guest_f| %>
+			<%= guest_f.label "Who you with?" %>
+			<%= guest_f.select(:id, options_from_collection_for_select(User.where('dj_id IS NOT ?', nil), :id, :name)) %>
+
+			<%= guest_f.label "Your name?" %>
+			<%= guest_f.text_field :name %>
+			
+			<%= guest_f.label :password %>
+			<%= guest_f.password_field :password %>
+
+			<% if devise_mapping.rememberable? -%>
+				<div><%= guest_f.check_box :remember_me %> <%= guest_f.label :remember_me %></div>
+			<% end -%>
+
+			<div><%= guest_f.submit "Sign in", :class => "btn" %></div>
+		<% end %>
+	</div>
+
+</div>
