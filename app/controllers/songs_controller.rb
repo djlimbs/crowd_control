@@ -3,7 +3,7 @@ class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
 
   def guest_artist_search
-	@display_names = Artist.where("name like ?", "%#{params[:term]}%")
+	@display_names = Artist.where("lower(name) like ?", "%#{params[:term].downcase}%")
 	respond_to do |format|
 		format.json {render json: @display_names.map(&:name)}
 	end
@@ -11,7 +11,7 @@ class SongsController < ApplicationController
   
   def guest_song_search
 	@artist = Artist.find_by(name: "#{params[:artist]}")
-	@display_songs = @artist.songs.where("title like ?", "%#{params[:term]}%")
+	@display_songs = @artist.songs.where("lower(title) like ?", "%#{params[:term].downcase}%")
 	respond_to do |format|
 		format.json {render json: @display_songs.map(&:title)}
 	end
