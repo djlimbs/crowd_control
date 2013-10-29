@@ -68,6 +68,8 @@ class VotesController < ApplicationController
         end
     		format.js { }
   	  else
+        @vote_failed = true
+        format.js { }
     		format.json { render json: @vote.errors, status: :unprocessable_entity }
   	  end
   	end

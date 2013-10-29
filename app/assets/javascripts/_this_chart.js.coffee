@@ -14,8 +14,8 @@ jQuery ->
 	$('.remove_vote').on 'click', (event) ->
 		event.preventDefault()
 		if (!($(event.target).hasClass('disabled')))
-			$(event.target).siblings('.add_vote').show()
-			$(event.target).siblings('.veto').show()
+			$(event.target).siblings('.add_vote').show().addClass('disabled')
+			$(event.target).siblings('.veto').show().addClass('disabled')
 			$(event.target).hide()
 	$('.veto').on 'click', (event) ->
 		event.preventDefault()

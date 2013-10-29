@@ -1,2 +1,3 @@
-//$( "#<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%>');
+$( "#<%= @song.id%>").find('.vote_type').find('.add_vote').removeClass('disabled');
+$( "#<%= @song.id%>").find('.vote_type').find('.veto').removeClass('disabled');
 //$( "#dnp_<%= @song.id%>").html('');

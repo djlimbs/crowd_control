@@ -1,26 +1,31 @@
-$(" #new_vote").hide();
-$(" #new_vote").find('input[type=text], textarea').val('');
-$(" #new_vote_link").show();
-$(" #<%= @song.id%>").find('.vote_type').find('.remove_vote').attr('href', 'votes/<%= @vote.id%>').show().removeClass('disabled');
-$(" #dnp_<%= @song.id%>").find('.vote_type').find('.remove_dnp').attr('href', 'votes/<%= @vote.id%>').removeClass('disabled');
-<% if @new_song and @vote.score != -100%>
-	$(" #chart_songs").append('<tr id=<%=@display.first.first%>><%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%></tr>');
-	$(" #<%= @song.id%>").find('.remove_vote').on('click', function(event){
-		event.preventDefault();
-		if (!($(event.target).hasClass('disabled'))){
-			$(event.target).siblings('.add_vote').show();
-			$(event.target).siblings('.veto').show();
-			$(event.target).hide();
-		}
-	});
-	$(" #<%= @song.id%>").find('.add_vote').on('click', function(event){
-		event.preventDefault();
-		$(event.target).siblings('.veto').hide();
-		$(event.target).siblings('.add_vote').hide();
-		$(event.target).hide();
-		$(event.target).siblings('.remove_vote').show().addClass('disabled');
-	});
-	$(" #<%= @song.id%>").find('.vote_type').find('.add_vote').hide();
+<% if @vote_failed %>
+	$(" #<%= @song.id%>").find('.vote_type').find('.remove_vote').hide();
+	$(" #<%= @song.id%>").find('.vote_type').find('.add_vote').show();
 <% else %>
-	$(" #<%= @song.id%>").find('.vote_type').find('.add_vote').hide();
+	$(" #new_vote").hide();
+	$(" #new_vote").find('input[type=text], textarea').val('');
+	$(" #new_vote_link").show();
+	$(" #<%= @song.id%>").find('.vote_type').find('.remove_vote').attr('href', 'votes/<%= @vote.id%>').show().removeClass('disabled');
+	$(" #dnp_<%= @song.id%>").find('.vote_type').find('.remove_dnp').attr('href', 'votes/<%= @vote.id%>').removeClass('disabled');
+	<% if @new_song and @vote.score != -100%>
+		$(" #chart_songs").append('<tr id=<%=@display.first.first%>><%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%></tr>');
+		$(" #<%= @song.id%>").find('.remove_vote').on('click', function(event){
+			event.preventDefault();
+			if (!($(event.target).hasClass('disabled'))){
+				$(event.target).siblings('.add_vote').show();
+				$(event.target).siblings('.veto').show();
+				$(event.target).hide();
+			}
+		});
+		$(" #<%= @song.id%>").find('.add_vote').on('click', function(event){
+			event.preventDefault();
+			$(event.target).siblings('.veto').hide();
+			$(event.target).siblings('.add_vote').hide();
+			$(event.target).hide();
+			$(event.target).siblings('.remove_vote').show().addClass('disabled');
+		});
+		$(" #<%= @song.id%>").find('.vote_type').find('.add_vote').hide();
+	<% else %>
+		$(" #<%= @song.id%>").find('.vote_type').find('.add_vote').hide();
+	<% end %>
 <% end %>
