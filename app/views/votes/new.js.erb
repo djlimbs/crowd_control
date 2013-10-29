@@ -1,4 +1,6 @@
-$( '#new_vote_link').hide().after('<div id = "new_vote"><%= j render("form") %></div>');
+$( '#new_vote_link').hide();
+$( '#new_vote').show();
+//$( '#new_vote').children().show();
 $('.artist_name_field').autocomplete({source: $('.artist_name_field').data('autocomplete-source')});
 $('.display_name_field').autocomplete({
 	source: function(request, response) {

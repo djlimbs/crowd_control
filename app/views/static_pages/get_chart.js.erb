@@ -1,2 +1,18 @@
 $("#chart_body").html("<%= j render 'this_chart'%>");
 $("#chart_body").append("<%= j render 'do_not_play_chart'%>");
+$('#new_vote').hide();
+$('.display').prevAll('.add_vote').hide();
+$('.no_display').hide();
+$('.add_vote').on('click', function(event){
+	event.preventDefault();
+	$(event.target).siblings('.remove_vote').show().addClass('disabled');
+	$(event.target).hide();
+	$(event.target).siblings('.add_vote').hide();
+});
+$('.remove_vote').on('click', function(event){
+	event.preventDefault();
+	if (!($(event.target).hasClass('disabled'))){
+		$(event.target).siblings('.add_vote').show();
+		$(event.target).hide();
+	}
+});

@@ -1,4 +1,4 @@
-<%= form_for @vote_params, :url => votes_path, :remote => true, :class => 'control-group', :id => 'new_vote' do |f| %>
+<%= form_tag({:url => votes_path, :remote => true, :class => 'control-group', :id => 'new_vote'}) do |f| %>
 	<%= f.hidden_field :chart_id, :value => @chart.id %>
 	<%= f.hidden_field :voter_name, :value => @voter_name %>
 	<%= f.label "Artist name: (just fill this out if you want anything by the artist)" %>

@@ -1,10 +1,9 @@
-$(" #new_vote").remove();
+$(" #new_vote").hide();
+$(" #new_vote").find('input[type=text], textarea').val('');
 $(" #new_vote_link").show();
-$( "#<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%>');
-<% if @display.first.last == "-100" %>
-	$( "#dnp_<%= @song.id%>").html('<%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%>');
-	$( "#<%= @song.id%>").html('')
-<% end %>
+$(" #<%= @song.id%>").find('.vote_type').find('.remove_vote').attr('href', 'votes/<%= @vote.id%>').show().removeClass('disabled');
+$(" #dnp_<%= @song.id%>").find('.vote_type').find('.remove_dnp').attr('href', 'votes/<%= @vote.id%>').removeClass('disabled');
+$(" #<%= @song.id%>").find('.vote_type').find('.add_vote').hide();
 <% if @new_song and @vote.score != -100%>
 	$(" #chart_songs").append('<tr id=<%=@display.first.first%>><%=j render 'static_pages/chart_song', :song => @display.first, :voter_name => @voter_name, :this_chart_id => @chart.id%></tr>');
 	$(" #do_not_play_chart_songs").append('<tr id="dnp_<%=@display.first.first%>"></tr>');

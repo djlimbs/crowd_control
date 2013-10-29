@@ -14,13 +14,13 @@ class StaticPagesController < ApplicationController
 	end
 
 	def guests
-	  @voter_name = params[:user][:name]
+		@voter_name = params[:user][:name]
 		@couple = User.find(params[:user][:id])
 		@dj = User.find(@couple.dj_id)
-	  @chart = Chart.find_by(name: @couple.name)
-	  @chart.gather_votes
+		@chart = Chart.find_by(name: @couple.name)
+		@chart.gather_votes
 	 	@display = @chart.chart_songs
-	  if guest_params[:password] != @chart.password
+		if guest_params[:password] != @chart.password
 			redirect_to '/guests', notice: 'Incorrect couple password'
 		end
 	end
@@ -32,8 +32,6 @@ class StaticPagesController < ApplicationController
  		@voter_name = params[:voter_name]
  		
  		respond_to do |format|
- 			format.html
- 			format.json
  			format.js
  		end
  	end

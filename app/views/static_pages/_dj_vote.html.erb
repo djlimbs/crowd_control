@@ -1,11 +1,20 @@
+<% @vote = Vote.where(:chart_id => @chart.id, :voter_name => @voter_name, :song_id => song.first).first %>
+<% @vote_cleared = { :chart_id => @chart.id, :voter_name => @voter_name, :score => 1, :display_name => Song.find(song.first).display_name} %>
+<% @vote_tame = { :chart_id => @chart.id, :voter_name => @voter_name, :score => 1, :display_name => Song.find(song.first).display_name} %>
+<% @vote_solid = { :chart_id => @chart.id, :voter_name => @voter_name, :score => 1, :display_name => Song.find(song.first).display_name} %>
+<% @vote_pickedup = { :chart_id => @chart.id, :voter_name => @voter_name, :score => 1, :display_name => Song.find(song.first).display_name} %>
+<% @vote_rage = { :chart_id => @chart.id, :voter_name => @voter_name, :score => 1, :display_name => Song.find(song.first).display_name} %>
 <% if song.last != "Do not play!" %>
-	<% if @vote = Vote.where(:chart_id => @chart.id, :voter_name => @voter_name, :song_id => song.first).first %>
-		<%= link_to 'Remove report', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse' %>
+	<%= link_to 'CLEARED', votes_path(@vote_cleared), :method => 'post', :remote => true, :class => 'btn add_vote' %>
+	<%= link_to 'Tame', votes_path(@vote_tame), :method => 'post', :remote => true, :class => 'btn add_vote' %>
+	<%= link_to 'Solid', votes_path(@vote_solid), :method => 'post', :remote => true, :class => 'btn add_vote' %>
+	<%= link_to 'Picked up!', votes_path(@vote_pickedup), :method => 'post', :remote => true, :class => 'btn add_vote' %>
+	<%= link_to 'RAGE', votes_path(@vote_rage), :method => 'post', :remote => true, :class => 'btn add_vote' %>
+
+	<% if @vote %>
+		<%= link_to 'Remove report', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse remove_vote display' %>
 	<% else %>
-		<%= link_to 'CLEARED', votes_path(:chart_id => @chart.id, :voter_name => @voter_name, :score => -1.5, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' %>
-		<%= link_to 'Tame', votes_path(:chart_id => @chart.id, :voter_name => @voter_name, :score => -1, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' %>
-		<%= link_to 'Solid', votes_path(:chart_id => @chart.id, :voter_name => @voter_name, :score => 0, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' %>
-		<%= link_to 'Picked up!', votes_path(:chart_id => @chart.id, :voter_name => @voter_name, :score => 1, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' %>
-		<%= link_to 'RAGE', votes_path(:chart_id => @chart.id, :voter_name => @voter_name, :score => 1.5, :display_name => Song.find(song.first).display_name), :method => 'post', :remote => true, :class => 'btn' %>
+		<%= link_to 'Remove report', @vote, method: :delete, :remote => true, :class => 'btn btn-inverse remove_vote no_display' %>
 	<% end %>
+	
 <% end %>
