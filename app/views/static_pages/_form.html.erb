@@ -1,0 +1,21 @@
+<%= form_tag('/votes', method: :post, :remote => true, :id => 'new_vote') do %>
+	<%= hidden_field_tag 'chart_id', @chart.id %>
+	<%= hidden_field_tag 'voter_name', @voter_name %>
+	<%= label_tag "Artist name: (just fill this out if you want anything by the artist)" %>
+	<%= text_field_tag 'name', nil, class: "artist_name_field", :data => {autocomplete_source: guest_artist_search_path } %>
+	<%= label_tag "Song title: (if you forgot who sings it, just fill this out and we'll search our database)" %>
+	<%= text_field_tag 'title', nil, class: "display_name_field", :data => {autocomplete_source: guest_song_search_path } %>
+	<br>
+	<% if current_user.nil?%>
+		<%= submit_tag 'Pretty please?!', :class => 'btn'%>
+	<% elsif current_user.dj? %>
+		<%= submit_tag 'CLEARED', :class => 'btn'%>
+		<%= submit_tag 'Tame', :class => 'btn'%>
+		<%= submit_tag 'Solid', :class => 'btn'%>
+		<%= submit_tag 'Picked up!', :class => 'btn'%>
+		<%= submit_tag 'RAGE', :class => 'btn'%>
+	<% else %>
+		<%= submit_tag 'Play this!', :class => 'btn'%>
+		<%= submit_tag 'Do not play!', :class => 'btn'%>
+	<% end %>
+<% end %>
