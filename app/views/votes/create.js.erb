@@ -4,6 +4,7 @@
 <% else %>
 	$(" #new_vote").hide();
 	$(" #new_vote").find('input[type=text], textarea').val('');
+	$(" #new_vote").find('.btn').addClass('disabled');
 	$(" #new_vote_link").show();
 	$(" #<%= @song.id%>").find('.vote_type').find('.remove_vote').attr('href', 'votes/<%= @vote.id%>').show().removeClass('disabled');
 	$(" #dnp_<%= @song.id%>").find('.vote_type').find('.remove_dnp').attr('href', 'votes/<%= @vote.id%>').removeClass('disabled');

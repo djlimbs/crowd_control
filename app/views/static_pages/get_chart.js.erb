@@ -16,3 +16,22 @@ $('.remove_vote').on('click', function(event){
 		$(event.target).hide();
 	}
 });
+
+$('#new_vote').find('.btn').addClass('disabled').on('click', function(event){
+	if ($(event.target).hasClass('disabled')){
+		event.preventDefault();
+	}
+});
+$('#name').on('keyup', function(event){
+	console.log($('#name').val())
+	if ($('#name').val() != '' || $('#title').val() != '')
+		$('#new_vote').find('.btn').removeClass('disabled');
+	else
+		$('#new_vote').find('.btn').addClass('disabled');
+});
+$('#title').on('keyup', function(event){
+	if ($('#name').val() != '' || $('#title').val() != '')
+		$('#new_vote').find('.btn').removeClass('disabled');
+	else
+		$('#new_vote').find('.btn').addClass('disabled');
+});
